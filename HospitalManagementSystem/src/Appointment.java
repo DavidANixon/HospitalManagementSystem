@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
 public class Appointment {
-	private long id;
+	private int id;
 	private LocalDate date;
 	private long or_id;
 	private long patient_id;
@@ -9,10 +9,22 @@ public class Appointment {
 	private long doctor_id;
 	private long nurse_id;
 	
-	public long getId() {
+	
+	
+	public Appointment(int id, LocalDate date, long or_id, long patient_id, long operation_id, long doctor_id,
+			long nurse_id) {
+		this.id = id;
+		this.date = date;
+		this.or_id = or_id;
+		this.patient_id = patient_id;
+		this.operation_id = operation_id;
+		this.doctor_id = doctor_id;
+		this.nurse_id = nurse_id;
+	}
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public LocalDate getDate() {

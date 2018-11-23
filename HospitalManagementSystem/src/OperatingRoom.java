@@ -1,13 +1,18 @@
 
 public class OperatingRoom {
-	private long id;
+	private int id;
 	private int roomNumber;
 	private String building;
 	
-	public long getId() {
+	public OperatingRoom(int id, int roomNumber, String building) {
+		this.id = id;
+		this.roomNumber = roomNumber;
+		this.building = building;
+	}
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public int getRoomNumber() {

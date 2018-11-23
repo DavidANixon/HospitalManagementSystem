@@ -1,17 +1,25 @@
 
 public class Employee {
-	private long id;
+	private int id;
 	private String name;
 	private int age;
 	private long phoneNumber;
 	private String office;
 	private String speciality;
 	
+	public Employee(int id, String name, int age, long phoneNumber, String office, String speciality) {
+		this.id = id;
+		this.name = name;
+		this.age = age;
+		this.phoneNumber = phoneNumber;
+		this.office = office;
+		this.speciality = speciality;
+	}
 	
-	public long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getName() {

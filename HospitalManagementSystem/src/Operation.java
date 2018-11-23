@@ -1,16 +1,24 @@
 
 public class Operation {
-	private long id;
+	private int id;
 	private String name;
 	private String illness;
 	private String specialty;
 	private int duration;
-	
 
-	public long getId() {
+	public Operation(int id, String name, String illness, String specialty, int duration) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.illness = illness;
+		this.specialty = specialty;
+		this.duration = duration;
+	}
+	
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getName() {

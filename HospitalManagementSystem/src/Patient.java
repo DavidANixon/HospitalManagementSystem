@@ -1,17 +1,27 @@
 import java.time.LocalDate;
 
 public class Patient {
-	private long id;
+	private int id;
 	private String name;
 	private LocalDate DOB;
 	private String address;
 	private long phoneNumber;
 	private String illness;
 	
-	public long getId() {
+	public Patient(int id, String name, LocalDate dOB, String address, long phoneNumber, String illness) {
+		super();
+		this.id = id;
+		this.name = name;
+		DOB = dOB;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+		this.illness = illness;
+	}
+	
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getName() {

@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 
 public class MySQLAccess {
 	
+
 	private Connection connect = null;
 	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
@@ -23,9 +24,9 @@ public class MySQLAccess {
 //	final private String user = getProp("dbUsername");
 //	final private String passwd = getProp("dbPassword");
 	
-	final private String host = "jdbc:mysql://localhost:3306/YOURDBNAME";
-	final private String user = "username";
-	final private String passwd = "password";
+	final private String host = "jdbc:mysql://team17@129.22.23.135/3306/Employee";
+	final private String user = "team17";
+	final private String passwd = "team17";
 	
 	InputStream input;
 
@@ -72,84 +73,41 @@ public class MySQLAccess {
 		return propValue;
 	}
 	
-	
-	public void addPatient(Patient p) {
-		
+	public void getTestData() throws Exception{
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			connect = DriverManager.getConnection(host, user, passwd);
+			preparedStatement = connect.prepareStatement("SELECT * FROM EMPLOYEE");
+			resultSet = preparedStatement.executeQuery();
+			System.out.println("got data");
+			while(resultSet.next()) {
+				System.out.println("Name: " + resultSet.getString(1));
+			}
+		}
+		catch (SQLException e) {
+			 System.err.println("Cannot connect ! ");
+		     e.printStackTrace();
+		}
+		finally {
+		     System.out.println("Closing the connection.");
+		     preparedStatement.close();
+		     if (connect != null) try { connect.close(); } catch (SQLException ignore) {}
+		 }
 	}
-	public void addEmployee(Employee e) {
-		
-	}
-	public void addOperation(Operation op) {
-		
-	}
-	public void addOperatingRoom(OperatingRoom or) {
-		
-	}
-	public void addAppointment(Appointment a) {
-		
-	}
-	
-	public void getPatient(Patient p) {
-		
-	}
-	public void getEmployee(Employee e) {
-		
-	}
-	public void getOperation(Operation op) {
-		
-	}
-	public void getOperatingRoom(OperatingRoom or) {
-		
-	}
-	public void getAppointment(Appointment a) {
-		
-	}
-	
-	public void updatePatient(Patient p) {
-		
-	}
-	public void updateEmployee(Employee e) {
-		
-	}
-	public void updateOperation(Operation op) {
-		
-	}
-	public void updateOperatingRoom(OperatingRoom or) {
-		
-	}
-	public void updateAppointment(Appointment a) {
-		
-	}
-	
-	public void deletePatient(Patient p) {
-		
-	}
-	public void deleteEmployee(Employee e) {
-		
-	}
-	public void deleteOperation(Operation op) {
-		
-	}
-	public void deleteOperatingRoom(OperatingRoom or) {
-		
-	}
-	public void deleteAppointment(Appointment a) {
-		
-	}
-	
 	
 	public void readDataBase() throws Exception {
 		try {
 		    // This will load the MySQL driver, each DB has its own driver
 		    Class.forName("com.mysql.jdbc.Driver");
+		    System.out.println("Hi there!");
 		   
 		    // Setup the connection with the DB
 		    connect = DriverManager.getConnection(host + "/feedback?"+ "user=" + user + "&password=" + passwd );
-		
+		    System.out.println("rip connection");
 		    // Statements allow to issue SQL queries to the database
 		    statement = connect.createStatement();
 		    // Result set get the result of the SQL query
-		    resultSet = statement.executeQuery("select * from employees");
+		    resultSet = statement.executeQuery("select * from Employee");
 		    writeResultSet(resultSet);
 		
 		    // PreparedStatements can use variables and are more efficient
@@ -201,16 +159,17 @@ public class MySQLAccess {
 			// It is possible to get the columns via name
 			// also possible to get the columns via the column number
 			// which starts at 1
-			String user = resultSet.getString("myuser");
-			String website = resultSet.getString("webpage");
-			String summary = resultSet.getString("summary");
-			Date date = resultSet.getDate("datum");
-			String comment = resultSet.getString("comments");
-			System.out.println("User: " + user);
-			System.out.println("Website: " + website);
-			System.out.println("Summary: " + summary);
-			System.out.println("Date: " + date);
-			System.out.println("Comment: " + comment);
+			String name = resultSet.getString("name");
+			System.out.println(name);
+//			String website = resultSet.getString("name");
+//			String summary = resultSet.getString("");
+//			Date date = resultSet.getDate("datum");
+//			String comment = resultSet.getString("comments");
+//			System.out.println("User: " + user);
+//			System.out.println("Website: " + website);
+//			System.out.println("Summary: " + summary);
+//			System.out.println("Date: " + date);
+//			System.out.println("Comment: " + comment);
 		}
 	}
 	
@@ -232,4 +191,69 @@ public class MySQLAccess {
 			
 		}
 	}
+	
+	public void addPatient(Patient p) {
+		
+	}
+	public void addEmployee(Employee e) {
+		
+	}
+	public void addOperation(Operation op) {
+		
+	}
+	public void addOperatingRoom(OperatingRoom or) {
+		
+	}
+	public void addAppointment(Appointment a) {
+		
+	}
+	
+	public void getPatient(Patient p) {
+			
+	}
+	public void getEmployee(Employee e) {
+		
+	}
+	public void getOperation(Operation op) {
+		
+	}
+	public void getOperatingRoom(OperatingRoom or) {
+		
+	}
+	public void getAppointment(Appointment a) {
+		
+	}
+	
+	public void updatePatient(Patient p) {
+		
+	}
+	public void updateEmployee(Employee e) {
+		
+	}
+	public void updateOperation(Operation op) {
+		
+	}
+	public void updateOperatingRoom(OperatingRoom or) {
+		
+	}
+	public void updateAppointment(Appointment a) {
+		
+	}
+	
+	public void deletePatient(Patient p) {
+		
+	}
+	public void deleteEmployee(Employee e) {
+		
+	}
+	public void deleteOperation(Operation op) {
+		
+	}
+	public void deleteOperatingRoom(OperatingRoom or) {
+		
+	}
+	public void deleteAppointment(Appointment a) {
+		
+	}
+	
 }
