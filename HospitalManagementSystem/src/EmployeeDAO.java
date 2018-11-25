@@ -9,16 +9,32 @@ public class EmployeeDAO {
 	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
-	
+
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	//Had a slash before -- try now with colon.           vv
 	//or maybe need to do IP:3306/team17 because file paths are a thing
 	//Also the database name is team17 not employee...
-	static final String host = "jdbc:mysql://team17@129.22.23.135:3306/Employee";
-	static final String dbUsername = "team17";
-	static final String dbPassword = "team17";
+//	static final String host = "jdbc:mysql://129.22.23.135:3306/team17";
+//	static final String dbUsername = "team17";
+//	static final String dbPassword = "team17";
+	static final String host = "jdbc:mysql://localhost:3306/Hospital";
+	static final String dbUsername = "root";
+	static final String dbPassword = "";
 	
 	InputStream input;
+	
+//	public static void main(String[] args) {
+//		try {
+//			Class.forName("com.mysql.jdbc.Driver");
+//		}
+//		//LinkageError - if the linkage fails
+//		//ExceptionInInitializerError - if the initialization provoked by this method fails
+//		//ClassNotFoundException - if the class cannot be located
+//		catch (ClassNotFoundException e3) {
+//			System.out.println("3");
+//			e3.printStackTrace();
+//		}
+//	}
 	
 	
 	public void addEmployee(Employee e) {
@@ -43,21 +59,24 @@ public class EmployeeDAO {
 	}
 	
 	
-	public Employee getEmployee(Employee e) throws Exception {
+	public Employee getEmployee(int id ) throws Exception {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("Connecting to Database (hopefully)");
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
 			System.out.println("Connected to Database");
-			preparedStatement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE id =" + e.getId());
+			preparedStatement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE id =" + id);
 			resultSet = preparedStatement.executeQuery();
 			System.out.println("Got some data");
-			Employee emp = new Employee(resultSet.getInt(0), 
-										resultSet.getString(1), 
-										resultSet.getInt(2), 
-										resultSet.getLong(3), 
-										resultSet.getString(4), 
-										resultSet.getString(5)); 
+			Employee emp = null;
+			while(resultSet.next()) {
+				emp = new Employee(id, 
+										resultSet.getString(2), 
+										resultSet.getInt(3), 
+										resultSet.getLong(4), 
+										resultSet.getString(5), 
+										resultSet.getString(6)); 
+			}
 
 			while(resultSet.next()) {
 				System.out.println("Name: " + resultSet.getString(1));
@@ -82,6 +101,7 @@ public class EmployeeDAO {
 	
 	public List<Employee> getAllEmployees() throws Exception {
 		try {
+			System.out.println("hi");
 			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("Connecting to Database (hopefully)");
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
@@ -92,12 +112,12 @@ public class EmployeeDAO {
 			
 			List<Employee> allEmps = new ArrayList<Employee>();
 			while(resultSet.next()) {
-				Employee emp = new Employee(resultSet.getInt(0), 
-						resultSet.getString(1), 
-						resultSet.getInt(2), 
-						resultSet.getLong(3), 
-						resultSet.getString(4), 
-						resultSet.getString(5)); 
+				Employee emp = new Employee(resultSet.getInt(1), 
+						resultSet.getString(2), 
+						resultSet.getInt(3), 
+						resultSet.getLong(4), 
+						resultSet.getString(5), 
+						resultSet.getString(6)); 
 				allEmps.add(emp);
 			}
 			
@@ -111,7 +131,9 @@ public class EmployeeDAO {
 		}
 		finally {
 		     System.out.println("Closing the connection.");
-		     preparedStatement.close();
+		     if(preparedStatement != null) {
+		    	 preparedStatement.close();
+		     }
 		     if (connection != null){
 		    	 try{
 		    		 connection.close();
@@ -133,12 +155,12 @@ public class EmployeeDAO {
 			
 			List<Employee> allEmps = new ArrayList<Employee>();
 			while(resultSet.next()) {
-				Employee emp = new Employee(resultSet.getInt(0), 
-						resultSet.getString(1), 
-						resultSet.getInt(2), 
-						resultSet.getLong(3), 
-						resultSet.getString(4), 
-						resultSet.getString(5)); 
+				Employee emp = new Employee(resultSet.getInt(1), 
+						resultSet.getString(2), 
+						resultSet.getInt(3), 
+						resultSet.getLong(4), 
+						resultSet.getString(5), 
+						resultSet.getString(6)); 
 				allEmps.add(emp);
 			}
 			
@@ -174,12 +196,12 @@ public class EmployeeDAO {
 			
 			List<Employee> allEmps = new ArrayList<Employee>();
 			while(resultSet.next()) {
-				Employee emp = new Employee(resultSet.getInt(0), 
-						resultSet.getString(1), 
-						resultSet.getInt(2), 
-						resultSet.getLong(3), 
-						resultSet.getString(4), 
-						resultSet.getString(5)); 
+				Employee emp = new Employee(resultSet.getInt(1), 
+						resultSet.getString(2), 
+						resultSet.getInt(3), 
+						resultSet.getLong(4), 
+						resultSet.getString(5), 
+						resultSet.getString(6)); 
 				allEmps.add(emp);
 			}
 			
@@ -211,12 +233,13 @@ public class EmployeeDAO {
 		    statement=connection.createStatement();
 		    //SQL Query
 		    String updatequery="UPDATE Employee SET "
-		    								+ "name=" + e.getName()
-		    								+ "age=" + e.getAge()
-		    								+ "phoneNumber=" + e.getPhoneNumber()
-		    								+ "office=" + e.getOffice()
-		    								+ "speciality=" + e.getSpeciality()
-		    								+ "Where id=" + e.getId();
+		    								+ "name="+ "\"" + e.getName()+ "\""
+		    								+ ", age=" + e.getAge()
+		    								+ ", phone=" + e.getPhoneNumber()
+		    								+ ", office=" + "\"" + e.getOffice() + "\""
+		    								+ ", speciality="+ "\"" + e.getSpeciality()+ "\""
+		    								+ " Where id=" + e.getId();
+		    System.out.println(updatequery);
 		    //Run Query
 		    statement.executeUpdate(updatequery);
 		    System.out.println("Table Updated Successfully");

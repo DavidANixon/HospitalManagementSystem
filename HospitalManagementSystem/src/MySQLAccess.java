@@ -20,9 +20,7 @@ public class MySQLAccess {
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
 	
-//	final private String host = getProp("dbUrl");
-//	final private String user = getProp("dbUsername");
-//	final private String passwd = getProp("dbPassword");
+	
 	
 	final private String host = "jdbc:mysql://team17@129.22.23.135/3306/Employee";
 	final private String user = "team17";
