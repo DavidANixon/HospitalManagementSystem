@@ -61,7 +61,7 @@ public class EmployeeDAO {
 		      PreparedStatement preparedStmt = connection.prepareStatement(query);
 		      preparedStmt.setString(1, e.getName());
 		      preparedStmt.setInt(2, e.getAge());
-		      preparedStmt.setLong(3, e.getPhoneNumber());
+		      preparedStmt.setString(3, e.getPhone());
 		      preparedStmt.setString(4, e.getOffice());
 		      preparedStmt.setString(5, e.getSpecialty());
 
@@ -74,7 +74,7 @@ public class EmployeeDAO {
 			String abc = "insert into  Employee (id, name, age, phone, office, specialty) values (default, \"" 
 					+ e.getName() + "\", " 
 					+ e.getAge() + ", " 
-					+ e.getPhoneNumber() + ", \""
+					+ e.getPhone() + ", \""
 					+ e.getOffice() + "\", \""
 					+ e.getSpecialty() + "\");";
 			System.out.println(abc);
@@ -117,7 +117,7 @@ public class EmployeeDAO {
 				emp = new Employee(id, 
 										resultSet.getString(2), 
 										resultSet.getInt(3), 
-										resultSet.getLong(4), 
+										resultSet.getString(4), 
 										resultSet.getString(5), 
 										resultSet.getString(6)); 
 			}
@@ -159,7 +159,7 @@ public class EmployeeDAO {
 				Employee emp = new Employee(resultSet.getInt(1), 
 						resultSet.getString(2), 
 						resultSet.getInt(3), 
-						resultSet.getLong(4), 
+						resultSet.getString(4), 
 						resultSet.getString(5), 
 						resultSet.getString(6)); 
 				allEmps.add(emp);
@@ -202,7 +202,7 @@ public class EmployeeDAO {
 				Employee emp = new Employee(resultSet.getInt(1), 
 						resultSet.getString(2), 
 						resultSet.getInt(3), 
-						resultSet.getLong(4), 
+						resultSet.getString(4), 
 						resultSet.getString(5), 
 						resultSet.getString(6)); 
 				allEmps.add(emp);
@@ -243,7 +243,7 @@ public class EmployeeDAO {
 				Employee emp = new Employee(resultSet.getInt(1), 
 						resultSet.getString(2), 
 						resultSet.getInt(3), 
-						resultSet.getLong(4), 
+						resultSet.getString(4), 
 						resultSet.getString(5), 
 						resultSet.getString(6)); 
 				allEmps.add(emp);
@@ -281,7 +281,7 @@ public class EmployeeDAO {
 		    String updatequery="UPDATE Employee SET "
 		    								+ "name="+ "\"" + e.getName()+ "\""
 		    								+ ", age=" + e.getAge()
-		    								+ ", phone=" + e.getPhoneNumber()
+		    								+ ", phone=" + e.getPhone()
 		    								+ ", office=" + "\"" + e.getOffice() + "\""
 		    								+ ", speciality="+ "\"" + e.getSpecialty()+ "\""
 		    								+ " Where id=" + e.getId();

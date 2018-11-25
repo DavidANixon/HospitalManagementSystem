@@ -3,15 +3,15 @@ public class Employee {
 	private int id;
 	private String name;
 	private int age;
-	private long phoneNumber;
+	private String phone;
 	private String office;
 	private String specialty;
 	
-	public Employee(int id, String name, int age, long phoneNumber, String office, String specialty) {
+	public Employee(int id, String name, int age, String phone, String office, String specialty) {
 		this.id = id;
 		this.name = name;
 		this.age = age;
-		this.phoneNumber = phoneNumber;
+		this.phone = phone;
 		this.office = office;
 		this.specialty = specialty;
 	}
@@ -34,11 +34,11 @@ public class Employee {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public long getPhoneNumber() {
-		return phoneNumber;
+	public String getPhone() {
+		return phone;
 	}
-	public void setPhoneNumber(long phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getOffice() {
 		return office;
