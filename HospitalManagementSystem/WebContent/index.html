@@ -5,6 +5,23 @@
 		<title>Hospital Management System </title>
 	</head>
 	<body>
-		<a href="welcome">Click here to start the servlet.</a>
+		<h1>Hospital Management System</h1>
+		<h3>Our management system has lots of handy features, you can:</h3>
+		
+		<form name="showAllEmps" method="get" action="EmployeeServlet">
+    		<input type="submit" value="Show All Employees" />
+		</form>
+		<p><strong>Add employee:</strong></p>
+		<form name="addEmpForm" method="post" action="EmployeeServlet">
+    		Name: <input type="text" name="name"/> <br/>
+  			Age: <input type="number" name="age" min="0" max="200" step="1" value="20">   			
+   			Phone: <input type="text" name="phone"/> <br/>
+   			Office: <input type="text" name="office"/> <br/>
+   			Specialty: <input type="text" name="specialty"/> <br/>
+   			
+    		<input type="submit" value="Add Employee" />
+		</form>
+		<a href="updateEmp">Update an Employee's data</a>
+		<a href="deleteEmp">Delete an employee completely</a>
 	</body>
 </html>

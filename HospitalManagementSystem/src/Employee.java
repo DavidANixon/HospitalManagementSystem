@@ -5,15 +5,15 @@ public class Employee {
 	private int age;
 	private long phoneNumber;
 	private String office;
-	private String speciality;
+	private String specialty;
 	
-	public Employee(int id, String name, int age, long phoneNumber, String office, String speciality) {
+	public Employee(int id, String name, int age, long phoneNumber, String office, String specialty) {
 		this.id = id;
 		this.name = name;
 		this.age = age;
 		this.phoneNumber = phoneNumber;
 		this.office = office;
-		this.speciality = speciality;
+		this.specialty = specialty;
 	}
 	
 	public int getId() {
@@ -46,10 +46,10 @@ public class Employee {
 	public void setOffice(String office) {
 		this.office = office;
 	}
-	public String getSpeciality() {
-		return speciality;
+	public String getSpecialty() {
+		return specialty;
 	}
-	public void setSpeciality(String speciality) {
-		this.speciality = speciality;
+	public void setSpeciality(String specialty) {
+		this.specialty = specialty;
 	}
 }

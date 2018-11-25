@@ -11,14 +11,12 @@
   </welcome-file-list>
   
   <servlet>
-	<servlet-name>HospitalServlet</servlet-name>
-	<servlet-class>FirstServlet</servlet-class>
+	<servlet-name>HospitalEmployeeServlet</servlet-name>
+	<servlet-class>EmployeeServlet</servlet-class>
   </servlet>
 	
   <servlet-mapping>
-	<servlet-name>HospitalServlet</servlet-name>
-	<url-pattern>/welcome</url-pattern>
+	<servlet-name>HospitalEmployeeServlet</servlet-name>
+	<url-pattern>/EmployeeServlet</url-pattern>
   </servlet-mapping>
 </web-app>
-
-<!-- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1" -->

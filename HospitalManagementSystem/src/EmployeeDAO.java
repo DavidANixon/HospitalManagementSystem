@@ -23,6 +23,15 @@ public class EmployeeDAO {
 	
 	InputStream input;
 	
+	public EmployeeDAO() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 //	public static void main(String[] args) {
 //		try {
 //			Class.forName("com.mysql.jdbc.Driver");
@@ -37,19 +46,54 @@ public class EmployeeDAO {
 //	}
 	
 	
-	public void addEmployee(Employee e) {
+	public void addEmployee(Employee e) throws ClassNotFoundException {
 		try {
-			//SQL statement: 
-		    preparedStatement = connection.prepareStatement("insert into  Employee values (default, ?, ?, ?, ?, ?)");
+			//Class.forName("com.mysql.jdbc.Driver");
+
+			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
+
+
+		      // the mysql insert statement
+		      String query = "insert into Employee(name, age, phone, office, specialty)"
+		        + " values (?, ?, ?, ?, ?)";
+
+		      // create the mysql insert preparedstatement
+		      PreparedStatement preparedStmt = connection.prepareStatement(query);
+		      preparedStmt.setString(1, e.getName());
+		      preparedStmt.setInt(2, e.getAge());
+		      preparedStmt.setLong(3, e.getPhoneNumber());
+		      preparedStmt.setString(4, e.getOffice());
+		      preparedStmt.setString(5, e.getSpecialty());
+
+		      // execute the preparedstatement
+		      preparedStmt.execute();
+			
+//			//insert into Employee (id, name, age, phone, office, specialty) values (default, “NurseName1”, 28, 6436781290, “Three Office Drive”, “Nurse”); 
+//			//insert into Employee (id, name, age, phone, office, specialty) values (default, "new person", 99, 2041231234, "New office", "Doctor");
+//			//SQL statement: 
+			String abc = "insert into  Employee (id, name, age, phone, office, specialty) values (default, \"" 
+					+ e.getName() + "\", " 
+					+ e.getAge() + ", " 
+					+ e.getPhoneNumber() + ", \""
+					+ e.getOffice() + "\", \""
+					+ e.getSpecialty() + "\");";
+			System.out.println(abc);
+//		    preparedStatement = connection.prepareStatement("insert into Employee (id, name, age, phone, office, specialty) values (default, \"" 
+//		    																														+ e.getName() + "\", " 
+//		    																														+ e.getAge() + ", " 
+//		    																														+ e.getPhoneNumber() + ", \""
+//		    																														+ e.getOffice() + "\", \""
+//		    																														+ e.getSpecialty() + "\");");
+//		    
 		    System.out.println("Adding " + e.getName() + " to employee table");
 		    
 		    //Add values here: 
-		    preparedStatement.setString(1, e.getName());
-		    preparedStatement.setInt(2, e.getAge());
-		    preparedStatement.setLong(3, e.getPhoneNumber());
-		    preparedStatement.setString(4, e.getOffice());
-		    preparedStatement.setString(5, e.getSpeciality());
-		    preparedStatement.executeUpdate();
+//		    preparedStatement.setString(1, e.getName());
+//		    preparedStatement.setInt(2, e.getAge());
+//		    preparedStatement.setLong(3, e.getPhoneNumber());
+//		    preparedStatement.setString(4, e.getOffice());
+//		    preparedStatement.setString(5, e.getSpecialty());
+//		    preparedStatement.executeUpdate();
 		    System.out.println("Employee Added!");
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -61,7 +105,7 @@ public class EmployeeDAO {
 	
 	public Employee getEmployee(int id ) throws Exception {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			//Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("Connecting to Database (hopefully)");
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
 			System.out.println("Connected to Database");
@@ -102,7 +146,7 @@ public class EmployeeDAO {
 	public List<Employee> getAllEmployees() throws Exception {
 		try {
 			System.out.println("hi");
-			Class.forName("com.mysql.jdbc.Driver");
+			//Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("Connecting to Database (hopefully)");
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
 			System.out.println("Connected to Database");
@@ -145,7 +189,7 @@ public class EmployeeDAO {
 	
 	public List<Employee> getAllDoctors() throws Exception {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			//Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("Connecting to Database (hopefully)");
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
 			System.out.println("Connected to Database");
@@ -186,7 +230,7 @@ public class EmployeeDAO {
 	
 	public List<Employee> getAllNurses() throws Exception {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			//Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("Connecting to Database (hopefully)");
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
 			System.out.println("Connected to Database");
@@ -225,8 +269,10 @@ public class EmployeeDAO {
 		return null;
 	}
 
-	public void updateEmployee(Employee e) {
+	public void updateEmployee(Employee e) throws ClassNotFoundException {
 		try {
+			//Class.forName("com.mysql.jdbc.Driver");
+
 			//Connect to server and database
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);     
 		    //Initialize Statement
@@ -237,7 +283,7 @@ public class EmployeeDAO {
 		    								+ ", age=" + e.getAge()
 		    								+ ", phone=" + e.getPhoneNumber()
 		    								+ ", office=" + "\"" + e.getOffice() + "\""
-		    								+ ", speciality="+ "\"" + e.getSpeciality()+ "\""
+		    								+ ", speciality="+ "\"" + e.getSpecialty()+ "\""
 		    								+ " Where id=" + e.getId();
 		    System.out.println(updatequery);
 		    //Run Query
@@ -252,14 +298,16 @@ public class EmployeeDAO {
 	    }
 	}
 	
-	public void deleteEmployee(Employee e) {
+	public void deleteEmployee(int id) throws ClassNotFoundException {
 		try {
+			//Class.forName("com.mysql.jdbc.Driver");
+
 			//Connect to server and database
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);     
 		    //Initialize Statement
 		    statement=connection.createStatement();
 		    //SQL Query
-		    String deletequery="DELETE FROM Employee WHERE id=" + e.getId();
+		    String deletequery="DELETE FROM Employee WHERE id=" + id;
 		    //Run Query
 		    statement.executeUpdate(deletequery);
 		    System.out.println("Row Deleted Successfully");
