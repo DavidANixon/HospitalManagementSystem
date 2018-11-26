@@ -13,147 +13,97 @@ public class EmployeeServlet extends HttpServlet {
 		edao = new EmployeeDAO();
 	}
 	
+	//Return a list of all employees
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
 		// Setting up the content type of webpage
 		response.setContentType("text/html");
 		// Writing message to the web page
 		PrintWriter out = response.getWriter();
-		out.println("<h1>" + "Employee Sample Page" + "</h1>");
-
+		out.println("<h1>" + "List all Employees" + "</h1>");
 		EmployeeDAO edao = new EmployeeDAO();
-		List<Employee> lst = new ArrayList<Employee>();
-		//List<Employee> doctors = new ArrayList<Employee>();
-		//List<Employee> nurses = new ArrayList<Employee>();
-		try {
-			//Get all initial data
-			//out.println("<h3>" + "First, lets list all the data in the table:" + "</h3>");
-			lst = edao.getAllEmployees();
-			if(lst != null) {
-				out.println("<p> <strong> Name 	: Age 	: Phone 	: Office 	: Specialty </strong></p>");
-				for(int i = 0; i < lst.size(); i++) {
-					Employee tempE = lst.get(i);
-					out.println("<p>" + tempE.getName() + ":	" + tempE.getAge() + ":	" + tempE.getPhone() +":	" + tempE.getOffice() + ":	" + tempE.getSpecialty() + "</p>");
+		String id = request.getParameter("id");
+		if(id.equals("-1")) {
+			List<Employee> lst = new ArrayList<Employee>();
+			try {
+				//Get all initial data
+				lst = edao.getAllEmployees();
+				if(lst != null) {
+					out.println("<p> <strong> ID | Name        | Age | Phone     | Office    | Specialty </strong></p>");
+					for(int i = 0; i < lst.size(); i++) {
+						Employee tempE = lst.get(i);
+						out.println("<p>" + tempE.getId() + " | " +  tempE.getName() + " | " + tempE.getAge() + " | " + tempE.getPhone() +" | " + tempE.getOffice() + " | " + tempE.getSpecialty() + "</p>");
+					}
+				}else {
+					out.println("<p>" + "There is no data in the table or a table was not found." + "<p>");
 				}
-				out.println("<p> <strong> Each item in the table also has an id but user doesn't need to know what it is </strong> </p>");
-			}else {
-				out.println("<p>" + "There is no data in the table" + "<p>");
+			} catch (Exception e) {
+				
 			}
-			
-		} catch (Exception e) {
-			
+		}else {
+			if(id.equals("")) {
+				out.println("<p> Input not valid</p>");
+			}else {
+				try {
+					edao.deleteEmployee(Integer.parseInt(id));
+					out.println("<p> Employee Deleted</p>");
+				}catch (Exception e) {
+					
+				}
+			}
 		}
 	}
 	
-	 private void listEmployees(HttpServletRequest request, HttpServletResponse response)
-	            throws SQLException, IOException, ServletException {
-	        List<Employee> empList = null;
-			try {
-				empList = edao.getAllEmployees();
-				System.out.println("empList has size: " + empList.size());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-	        request.setAttribute("empList", empList);
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("Employee.jsp");
-	        dispatcher.forward(request, response);
-	    }
-	 
-	    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
-	    	System.out.println("hi there");
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("EmployeeForm.jsp");
-	        dispatcher.forward(request, response);
-	    }
-	 
-	    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
-	        int id = Integer.parseInt(request.getParameter("id"));
-	        Employee selectedEmployee = null;
-			try {
-				selectedEmployee = edao.getEmployee(id);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("EmployeeForm.jsp");
-	        request.setAttribute("emp", selectedEmployee);
-	        dispatcher.forward(request, response);
-	 
-	    }
-//	 
-//	    private void insertBook(HttpServletRequest request, HttpServletResponse response)
-//	            throws SQLException, IOException {
-//	        String title = request.getParameter("title");
-//	        String author = request.getParameter("author");
-//	        float price = Float.parseFloat(request.getParameter("price"));
-//	 
-//	        Book newBook = new Book(title, author, price);
-//	        bookDAO.insertBook(newBook);
-//	        response.sendRedirect("list");
-//	    }
-//	 
-//	    private void updateBook(HttpServletRequest request, HttpServletResponse response)
-//	            throws SQLException, IOException {
-//	        int id = Integer.parseInt(request.getParameter("id"));
-//	        String title = request.getParameter("title");
-//	        String author = request.getParameter("author");
-//	        float price = Float.parseFloat(request.getParameter("price"));
-//	 
-//	        Book book = new Book(id, title, author, price);
-//	        bookDAO.updateBook(book);
-//	        response.sendRedirect("list");
-//	    }
-//	 
-//	    private void deleteBook(HttpServletRequest request, HttpServletResponse response)
-//	            throws SQLException, IOException {
-//	        int id = Integer.parseInt(request.getParameter("id"));
-//	 
-//	        Book book = new Book(id);
-//	        bookDAO.deleteBook(book);
-//	        response.sendRedirect("list");
-//	 
-//	    }
-	
+	//Add a new employee
 	protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-         
         // read form fields
+		String id = request.getParameter("id");
         String name = request.getParameter("name");
         String age = request.getParameter("age");
         String phone = request.getParameter("phone");
         String office = request.getParameter("office");
         String specialty = request.getParameter("specialty");
-         
-        System.out.println("name: " + name);
-        System.out.println("age: " + age);
- 
-        // do some processing here...
         
-        try {
-        	EmployeeDAO edao = new EmployeeDAO();
-			Employee e = new Employee(3, name, Integer.parseInt(age), phone, office, specialty);
-			edao.addEmployee(e);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-         
+        EmployeeDAO edao = new EmployeeDAO();
+        if(id.equals("-1")) {
+        	try {
+            	
+    			Employee e = new Employee(3, name, Integer.parseInt(age), phone, office, specialty);
+    			edao.addEmployee(e);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+        }else {
+        	try {
+    			Employee e = new Employee(Integer.parseInt(id), name, Integer.parseInt(age), phone, office, specialty);
+    			edao.updateEmployee(e);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+        }
+        
         // get response writer
         PrintWriter writer = response.getWriter();
-         
         // build HTML code
         String htmlRespone = "<html>";
-        htmlRespone += "<h2> Employee Added. </br></h2>";  
+        htmlRespone += "<h2> Employee Added. </br></h2>";
         htmlRespone += "</html>";
+        //TODO: Add a back button so the user can return to the previous page
          
         // return response
         writer.println(htmlRespone);
-         
     }
 	
+	public void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+	}
+	
+	public void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		
+	}
 	
 }
