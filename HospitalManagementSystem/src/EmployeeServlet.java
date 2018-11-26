@@ -15,37 +15,6 @@ public class EmployeeServlet extends HttpServlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		String action = request.getServletPath();
-//		System.out.println("*******");
-//		System.out.println("New action: " + action);
-//        try {
-//            switch (action) {
-//            case "/EmployeeServlet/new":
-//            	System.out.println("new");
-//                showNewForm(request, response);
-//                break;
-////            case "/insert":
-////                insertBook(request, response);
-////                break;
-////            case "/delete":
-////                deleteBook(request, response);
-////                break;
-//            case "/EmployeeServlet/edit":
-//            	System.out.println("edit");
-//                showEditForm(request, response);
-//                break;
-////            case "/update":
-////                updateBook(request, response);
-////                break;
-//            default:
-//            	System.out.println("listStuff");
-//                listEmployees(request, response);
-//                break;
-//            }
-//        } catch (SQLException ex) {
-//        	System.out.println("rip");
-//            throw new ServletException(ex);
-//        }
 		
 		// Setting up the content type of webpage
 		response.setContentType("text/html");

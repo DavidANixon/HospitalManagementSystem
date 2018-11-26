@@ -32,24 +32,8 @@ public class EmployeeDAO {
 		}
 	}
 	
-//	public static void main(String[] args) {
-//		try {
-//			Class.forName("com.mysql.jdbc.Driver");
-//		}
-//		//LinkageError - if the linkage fails
-//		//ExceptionInInitializerError - if the initialization provoked by this method fails
-//		//ClassNotFoundException - if the class cannot be located
-//		catch (ClassNotFoundException e3) {
-//			System.out.println("3");
-//			e3.printStackTrace();
-//		}
-//	}
-	
-	
 	public void addEmployee(Employee e) throws ClassNotFoundException {
 		try {
-			//Class.forName("com.mysql.jdbc.Driver");
-
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
 
 
