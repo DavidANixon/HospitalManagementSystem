@@ -20,7 +20,7 @@
 	<url-pattern>/EmployeeServlet</url-pattern>
   </servlet-mapping>
   
-    <servlet>
+   <servlet>
 	<servlet-name>HospitalPatientServlet</servlet-name>
 	<servlet-class>PatientServlet</servlet-class>
   </servlet>
@@ -28,5 +28,15 @@
   <servlet-mapping>
 	<servlet-name>HospitalPatientServlet</servlet-name>
 	<url-pattern>/PatientServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>HospitalOperationServlet</servlet-name>
+	<servlet-class>OperationServlet</servlet-class>
+  </servlet>
+	
+  <servlet-mapping>
+	<servlet-name>HospitalOperationServlet</servlet-name>
+	<url-pattern>/OperationServlet</url-pattern>
   </servlet-mapping>
 </web-app>

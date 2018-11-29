@@ -13,7 +13,7 @@
 			<p> Show all Patients:  </p> <br/>
 			<div style="display:none;"> <input type="text" name="id" value="-1"/> </div><br/>
 			<p>some text here</p><br/>
-    		<input type="submit" value="Submit" />
+    		<input type="submit" value="Show all patients" />
 		</form>
 		
 		<h2>Add an Patient</h2>
@@ -40,15 +40,14 @@
    			Phone: <input type="text" name="Phone"/> <br/>
    			Illness: <input type="text" name="Illness"/> <br/>
    			
-    		<input type="submit" value="Add Patient" />
+    		<input type="submit" value="Update Patient" />
 		</form>
 		
 		<h2>Delete an Patient</h2>
 		<form name="deleteAllEmps" method="get" action="PatientServlet">
 			<p> If you would like to delete an Patient, enter their ID here: </p> <br/>
 			Id: <input type="text" name="id"/><br/>
-			<p>If you would like to see all Patients in the system, please enter "-1" above.</p><br/>
-    		<input type="submit" value="Submit" />
+    		<input type="submit" value="Delete Patient" />
 		</form>
 	</body>
 </html>
