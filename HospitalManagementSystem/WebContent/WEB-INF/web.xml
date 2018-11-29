@@ -19,4 +19,14 @@
 	<servlet-name>HospitalEmployeeServlet</servlet-name>
 	<url-pattern>/EmployeeServlet</url-pattern>
   </servlet-mapping>
+  
+    <servlet>
+	<servlet-name>HospitalPatientServlet</servlet-name>
+	<servlet-class>PatientServlet</servlet-class>
+  </servlet>
+	
+  <servlet-mapping>
+	<servlet-name>HospitalPatientServlet</servlet-name>
+	<url-pattern>/PatientServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

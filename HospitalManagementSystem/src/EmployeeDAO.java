@@ -225,5 +225,4 @@ public class EmployeeDAO {
 		    if (connection != null) try { connection.close(); } catch (SQLException ignore) {}
 	    }
 	}
-	
 }

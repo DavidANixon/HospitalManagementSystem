@@ -1,18 +1,19 @@
+import java.util.Date;
 import java.time.LocalDate;
 
 public class Patient {
 	private int id;
 	private String name;
-	private LocalDate DOB;
+	private Date DOB;
 	private String address;
-	private long phoneNumber;
+	private String phoneNumber;
 	private String illness;
 	
-	public Patient(int id, String name, LocalDate dOB, String address, long phoneNumber, String illness) {
+	public Patient(int id, String name, Date date, String address, String phoneNumber, String illness) {
 		super();
 		this.id = id;
 		this.name = name;
-		DOB = dOB;
+		DOB = date;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.illness = illness;
@@ -30,10 +31,10 @@ public class Patient {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public LocalDate getDOB() {
+	public Date getDOB() {
 		return DOB;
 	}
-	public void setDOB(LocalDate dOB) {
+	public void setDOB(Date dOB) {
 		DOB = dOB;
 	}
 	public String getAddress() {
@@ -42,10 +43,10 @@ public class Patient {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public long getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(long phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	public String getIllness() {
