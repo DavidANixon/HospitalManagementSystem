@@ -32,7 +32,7 @@ public class EmployeeDAO {
 
 
 		      // the mysql insert statement
-		      String query = "insert into Employee(name, age, phone, office, specialty)"
+		      String query = "insert into Employee(Name, Age, Phone, Office, Specialty)"
 		        + " values (?, ?, ?, ?, ?)";
 
 		      // create the mysql insert preparedstatement
@@ -55,7 +55,7 @@ public class EmployeeDAO {
 	public Employee getEmployee(int id ) throws Exception {
 		try {
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-			preparedStatement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE id =" + id);
+			preparedStatement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE Employee_ID =" + id);
 			resultSet = preparedStatement.executeQuery();
 			Employee emp = null;
 			while(resultSet.next()) {
@@ -121,7 +121,7 @@ public class EmployeeDAO {
 	public List<Employee> getAllDoctors() throws Exception {
 		try {
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-			preparedStatement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE NOT speciality = 'Nurse' ");
+			preparedStatement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE NOT Speciality = 'Nurse' ");
 			resultSet = preparedStatement.executeQuery();
 			
 			List<Employee> allEmps = new ArrayList<Employee>();
@@ -154,7 +154,7 @@ public class EmployeeDAO {
 	public List<Employee> getAllNurses() throws Exception {
 		try {
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-			preparedStatement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE speciality = 'Nurse' ");
+			preparedStatement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE Speciality = 'Nurse' ");
 			resultSet = preparedStatement.executeQuery();
 			
 			List<Employee> allEmps = new ArrayList<Employee>();
@@ -192,12 +192,12 @@ public class EmployeeDAO {
 		    statement=connection.createStatement();
 		    //SQL Query
 		    String updatequery="UPDATE Employee SET "
-		    								+ "name="+ "\"" + e.getName()+ "\""
-		    								+ ", age=" + e.getAge()
-		    								+ ", phone=" + e.getPhone()
-		    								+ ", office=" + "\"" + e.getOffice() + "\""
-		    								+ ", specialty="+ "\"" + e.getSpecialty()+ "\""
-		    								+ " Where id=" + e.getId();
+		    								+ "Name="+ "\"" + e.getName()+ "\""
+		    								+ ", Age=" + e.getAge()
+		    								+ ", Phone=" + "\"" + e.getPhone() + "\""
+		    								+ ", Office=" + "\"" + e.getOffice() + "\""
+		    								+ ", Specialty="+ "\"" + e.getSpecialty()+ "\""
+		    								+ " Where Employee_ID=" + e.getId();
 		    //Run Query
 		    statement.executeUpdate(updatequery);
 	    } catch (SQLException e3) {
@@ -215,7 +215,7 @@ public class EmployeeDAO {
 		    //Initialize Statement
 		    statement=connection.createStatement();
 		    //SQL Query
-		    String deletequery="DELETE FROM Employee WHERE id=" + id;
+		    String deletequery="DELETE FROM Employee WHERE Employee_ID=" + id;
 		    //Run Query
 		    statement.executeUpdate(deletequery);
 	    } catch (SQLException e4) {

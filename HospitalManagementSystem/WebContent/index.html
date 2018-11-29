@@ -8,17 +8,18 @@
 		<h1>Hospital Management System</h1>
 		<h3>Our management system has lots of handy features, you can:</h3>
 		
+		<h2>Show all employees</h2>
 		<form name="showAllEmps" method="get" action="EmployeeServlet">
-		<p> If you would like to delete an employee, enter their ID here: </p> <br/>
-			Id: <input type="text" name="id"/><br/>
-			<p>If you would like to see all employees in the system, please enter "-1" above.</p><br/>
+			<p> Show all employees:  </p> <br/>
+			<div style="display:none;"> <input type="text" name="id" value="-1"/> </div><br/>
+			<p>some text here</p><br/>
     		<input type="submit" value="Submit" />
 		</form>
 		
-		<p><strong>Add or update an Employee:</strong></p><br/>
-		<p>Note: If you are adding a new employee, enter "-1" into the id field.</p>
+		<h2>Add an employees</h2>
+		<p><strong>Add an Employee:</strong></p><br/>
 		<form name="addEmpForm" method="post" action="EmployeeServlet">
-			Id: <input type="text" name="id"/><br/>
+			<div style="display:none;"><input type="text" name="id" value="-1"/></div><br/>
     		Name: <input type="text" name="name"/> <br/>
   			Age: <input type="number" name="age" min="0" max="200" step="1" value="20"> <br/>			
    			Phone: <input type="text" name="phone"/> <br/>
@@ -26,6 +27,28 @@
    			Specialty: <input type="text" name="specialty"/> <br/>
    			
     		<input type="submit" value="Add Employee" />
+		</form>
+		
+		<h2>Update an employee</h2>
+		<p><strong>Update an Employee:</strong></p><br/>
+		<form name="updateEmpForm" method="post" action="EmployeeServlet">
+			Employee Id: <input type="text" name="id"/><br/>
+			<p>Fill in all fields below: </p>
+    		Name: <input type="text" name="name"/> <br/>
+  			Age: <input type="number" name="age" min="0" max="200" step="1" value="20"> <br/>			
+   			Phone: <input type="text" name="phone"/> <br/>
+   			Office: <input type="text" name="office"/> <br/>
+   			Specialty: <input type="text" name="specialty"/> <br/>
+   			
+    		<input type="submit" value="Add Employee" />
+		</form>
+		
+		<h2>Delete an employee</h2>
+		<form name="deleteAllEmps" method="get" action="EmployeeServlet">
+			<p> If you would like to delete an employee, enter their ID here: </p> <br/>
+			Id: <input type="text" name="id"/><br/>
+			<p>If you would like to see all employees in the system, please enter "-1" above.</p><br/>
+    		<input type="submit" value="Submit" />
 		</form>
 	</body>
 </html>

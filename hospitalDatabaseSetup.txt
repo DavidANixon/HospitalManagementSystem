@@ -1,8 +1,8 @@
 create database Hospital;
 use Hospital;
-create table Employee (Employee_ID int AUTO_INCREMENT PRIMARY KEY, Name varChar(255) NOT NULL, Age int, Phone varChar(255), Office varChar(255), Speciality varChar(255) NOT NULL);
+create table Employee (Employee_ID int AUTO_INCREMENT PRIMARY KEY, Name varChar(255) NOT NULL, Age int, Phone varChar(255), Office varChar(255), Specialty varChar(255) NOT NULL);
 create table Patient (Patient_ID int AUTO_INCREMENT PRIMARY KEY, Name varChar(255) NOT NULL, DOB date NOT NULL, Address varChar(255), Phone varChar(255), Illness varChar(255) NOT NULL);
-create table Operation (Operation_ID int AUTO_INCREMENT PRIMARY KEY, Name varChar(225) NOT NULL, Illness varChar(255) NOT NULL, Speciality varChar(255) NOT NULL, Duration int NOT NULL);
+create table Operation (Operation_ID int AUTO_INCREMENT PRIMARY KEY, Name varChar(225) NOT NULL, Illness varChar(255) NOT NULL, Specialty varChar(255) NOT NULL, Duration int NOT NULL);
 create table Operating_Room (OR_ID int AUTO_INCREMENT PRIMARY KEY, Building varChar(255) NOT NULL, Room_Number int NOT NULL);
 create table Appointment (Appointment_ID int AUTO_INCREMENT PRIMARY KEY, 
 							Date date NOT NULL, Time int NOT NULL, OR_ID int NOT NULL, Patient_ID int NOT NULL,

@@ -68,9 +68,16 @@ public class EmployeeServlet extends HttpServlet {
         EmployeeDAO edao = new EmployeeDAO();
         if(id.equals("-1")) {
         	try {
-            	
     			Employee e = new Employee(3, name, Integer.parseInt(age), phone, office, specialty);
     			edao.addEmployee(e);
+    			
+    			// get response writer
+    	        PrintWriter writer = response.getWriter();
+    	        // build HTML code
+    	        String htmlRespone = "<html>";
+    	        htmlRespone += "<h2> Employee Added. </br></h2>";
+    	        htmlRespone += "</html>";
+    	        writer.println(htmlRespone);
     		} catch (Exception e) {
     			e.printStackTrace();
     		}
@@ -78,32 +85,23 @@ public class EmployeeServlet extends HttpServlet {
         	try {
     			Employee e = new Employee(Integer.parseInt(id), name, Integer.parseInt(age), phone, office, specialty);
     			edao.updateEmployee(e);
+    			 // get response writer
+    	        PrintWriter writer = response.getWriter();
+    	        // build HTML code
+    	        String htmlRespone = "<html>";
+    	        htmlRespone += "<h2> Employee Updated. </br></h2>";
+    	        htmlRespone += "</html>";
+    	        writer.println(htmlRespone);
     		} catch (Exception e) {
     			e.printStackTrace();
     		}
         }
         
-        // get response writer
-        PrintWriter writer = response.getWriter();
-        // build HTML code
-        String htmlRespone = "<html>";
-        htmlRespone += "<h2> Employee Added. </br></h2>";
-        htmlRespone += "</html>";
+       
         //TODO: Add a back button so the user can return to the previous page
          
         // return response
-        writer.println(htmlRespone);
+        
     }
-	
-	public void doPut(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-	}
-	
-	public void doDelete(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		
-	}
 	
 }
