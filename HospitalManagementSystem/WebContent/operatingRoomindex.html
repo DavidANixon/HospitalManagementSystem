@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Hospital Management System </title>
+	</head>
+	<body>
+		<h1>Hospital Management System</h1>
+		<h3>Our management system has lots of handy features for Operating Rooms, you can:</h3>
+		
+		<h2>Show all OperatingRooms</h2>
+		<form name="showAllEmps" method="get" action="OperatingRoomServlet">
+			<p> Show all OperatingRooms:  </p> <br/>
+			<div style="display:none;"> <input type="text" name="id" value="-1"/> </div><br/>
+    		<input type="submit" value="Show all Operating Rooms" />
+		</form>
+		
+		<h2>Add an OperatingRoom</h2>
+		<p><strong>Add an Operating Room:</strong></p><br/>
+		<form name="addEmpForm" method="post" action="OperatingRoomServlet">
+			<div style="display:none;"><input type="text" name="id" value="-1"/></div><br/>
+    		Building: <input type="text" name="Building"/> <br/>	
+   			Room Number: <input type="text" name="RoomNumber"/> <br/>
+   			
+    		<input type="submit" value="Add OperatingRoom" />
+		</form>
+		
+		<h2>Update an OperatingRoom</h2>
+		<p><strong>Update an OperatingRoom:</strong></p><br/>
+		<form name="updateEmpForm" method="post" action="OperatingRoomServlet">
+			OperatingRoom Id: <input type="text" name="id"/><br/>
+			<p>Fill in all fields below: </p>
+    		Building: <input type="text" name="Building"/> <br/>	
+   			Room Number: <input type="text" name="RoomNumber"/> 
+   			
+    		<input type="submit" value="Update OperatingRoom" />
+		</form>
+		
+		<h2>Delete an OperatingRoom</h2>
+		<form name="deleteAllEmps" method="get" action="OperatingRoomServlet">
+			<p> If you would like to delete an OperatingRoom, enter their ID here: </p> <br/>
+			Id: <input type="text" name="id"/><br/>
+    		<input type="submit" value="Delete Operation" />
+		</form>
+	</body>
+</html>
