@@ -12,32 +12,33 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class PatientServlet extends HttpServlet {
-	PatientDAO pdao;
+public class AppointmentServlet extends HttpServlet {
+	AppointmentDAO pdao;
 
 	public void init() throws ServletException {
-		pdao = new PatientDAO();
+		pdao = new AppointmentDAO();
 	}
-	//Return a list of all Patients
+	//Return a list of all Appointments
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// Setting up the content type of webpage
 		response.setContentType("text/html");
 		// Writing message to the web page
 		PrintWriter out = response.getWriter();
-		out.println("<h1>" + "List all Patients" + "</h1>");
-		PatientDAO pdao = new PatientDAO();
+		out.println("<h1>" + "List all Appointments" + "</h1>");
+		AppointmentDAO pdao = new AppointmentDAO();
 		String id = request.getParameter("id");
 		if(id.equals("-1")) {
-			List<Patient> lst = new ArrayList<Patient>();
+			List<Appointment> lst = new ArrayList<Appointment>();
 			try {
 				//Get all initial data
-				lst = pdao.getAllPatients();
+				lst = pdao.getAllAppointments();
 				if(lst != null) {
-					out.println("<p> <strong> ID | Name        | DOB 	 | Address     | Phone    | Illness </strong></p>");
+					//| Appointment_ID | Date       | Time | OR_ID | Patient_ID | Operation_ID | Doctor_ID | Nurse_ID |
+					out.println("<p> <strong> ID | Date | Time | OR_ID | Patient_ID | Operation_ID | Doctor_ID | Nurse_ID </strong></p>");
 					for(int i = 0; i < lst.size(); i++) {
-						Patient tempP = lst.get(i);
-						out.println("<p>" + tempP.getId() + " | " +  tempP.getName() + " | " + tempP.getDOB() + " | " + tempP.getAddress() +" | " + tempP.getPhoneNumber() + " | " + tempP.getIllness() + "</p>");
+						Appointment tempP = lst.get(i);
+						out.println("<p>" + tempP.getId() + " | " +  tempP.getDate() + " | " + tempP.getTime() + " | " + tempP.getOr_id() + " | " + tempP.getPatient_id() + " | " + tempP.getOperation_id() + " | " + tempP.getDoctor_id() + " | " + tempP.getNurse_id() +  "</p>");
 					}
 				}else {
 					out.println("<p>" + "There is no data in the table or a table was not found." + "<p>");
@@ -50,8 +51,8 @@ public class PatientServlet extends HttpServlet {
 				out.println("<p> Input not valid</p>");
 			}else {
 				try {
-					pdao.deletePatient(Integer.parseInt(id));
-					out.println("<p> Patient Deleted</p>");
+					pdao.deleteAppointment(Integer.parseInt(id));
+					out.println("<p> Appointment Deleted</p>");
 				}catch (Exception e) {
 					
 				}
@@ -59,19 +60,22 @@ public class PatientServlet extends HttpServlet {
 		}
 	}
 	
-	//Add a new Patient
+	//Add a new Appointment
 	protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         // read form fields
+	
 		String id = request.getParameter("id");
-        String name = request.getParameter("Name");
-        String dateStr = request.getParameter("DOB");
-        String address = request.getParameter("Address");
-        String phone = request.getParameter("Phone");
-        String illness = request.getParameter("Illness");
-        
-        PatientDAO pdao = new PatientDAO();
-        
+		String dateStr = request.getParameter("Date");
+        String time = request.getParameter("Time");
+        String orId = request.getParameter("OR_id");
+        String pId = request.getParameter("P_id");
+        String oId = request.getParameter("O_id");
+        String dId = request.getParameter("D_id");
+        String nId = request.getParameter("N_id");
+
+        AppointmentDAO pdao = new AppointmentDAO();
+        System.out.println("We have a date " + dateStr);
         DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
         Date date = null;
 		try {
@@ -83,14 +87,14 @@ public class PatientServlet extends HttpServlet {
         
         if(id.equals("-1")) {
         	try {
-    			Patient p = new Patient(3, name, date, address, phone, illness);
-    			pdao.addPatient(p);
+    			Appointment p = new Appointment(3, date, Integer.parseInt(time), Integer.parseInt(orId), Integer.parseInt(pId), Integer.parseInt(oId), Integer.parseInt(dId),Integer.parseInt(nId));
+    			pdao.addAppointment(p);
     			
     			// get response writer
     	        PrintWriter writer = response.getWriter();
     	        // build HTML code
     	        String htmlRespone = "<html>";
-    	        htmlRespone += "<h2> Patient Added. </br></h2>";
+    	        htmlRespone += "<h2> Appointment Added. </br></h2>";
     	        htmlRespone += "</html>";
     	        writer.println(htmlRespone);
     		} catch (Exception e) {
@@ -98,13 +102,13 @@ public class PatientServlet extends HttpServlet {
     		}
         }else {
         	try {
-    			Patient p = new Patient(Integer.parseInt(id), name, date, address, phone, illness);
-    			pdao.updatePatient(p);
+    			Appointment p = new Appointment(Integer.parseInt(id), date, Integer.parseInt(time), Integer.parseInt(orId), Integer.parseInt(pId), Integer.parseInt(oId), Integer.parseInt(dId),Integer.parseInt(nId));
+    			pdao.updateAppointment(p);
     			 // get response writer
     	        PrintWriter writer = response.getWriter();
     	        // build HTML code
     	        String htmlRespone = "<html>";
-    	        htmlRespone += "<h2> Patient Updated. </br></h2>";
+    	        htmlRespone += "<h2> Appointment Updated. </br></h2>";
     	        htmlRespone += "</html>";
     	        writer.println(htmlRespone);
     		} catch (Exception e) {
@@ -115,5 +119,4 @@ public class PatientServlet extends HttpServlet {
        
         //TODO: Add a back button so the user can return to the previous page        
     }
-	
 }

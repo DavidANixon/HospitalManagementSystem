@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Hospital Management System </title>
+	</head>
+	<body>
+		<h1>Hospital Management System</h1>
+		<h3>Our management system has lots of handy features for Appointments, you can:</h3>
+		
+		<h2>Show all Appointments</h2>
+		<form name="showAllEmps" method="get" action="AppointmentServlet">
+			<p> Show all Appointments:  </p> <br/>
+			<div style="display:none;"> <input type="text" name="id" value="-1"/> </div><br/>
+			<p>some text here</p><br/>
+    		<input type="submit" value="Show all Appointments" />
+		</form>
+		
+		<h2>Add an Appointment</h2>
+		<p><strong>Add an Appointment:</strong></p><br/>
+		<form name="addEmpForm" method="post" action="AppointmentServlet">
+			<div style="display:none;"><input type="text" name="id" value="-1"/></div><br/>
+    		Date: <input type="date" name="Date" value="2018-12-04"> <br/>	
+    		Time: <input type="text" name="Time"/> <br/>
+   			OR_ID: <input type="text" name="OR_id"/> <br/>
+   			Patient_id: <input type="text" name="P_id"/> <br/>
+   			Operation_id: <input type="text" name="O_id"/> <br/>
+   			Doctor_id: <input type="text" name="D_id"/> <br/>
+   			Nurse_id: <input type="text" name="N_id"/> <br/>
+   			
+    		<input type="submit" value="Add Appointment" />
+		</form>
+		
+		<h2>Update an Appointment</h2>
+		<p><strong>Update an Appointment:</strong></p><br/>
+		<form name="updateEmpForm" method="post" action="AppointmentServlet">
+			Appointment Id: <input type="text" name="id"/><br/>
+			<p>Fill in all fields below: </p>
+    		Date: <input type="date" name="Date" value="2018-12-04"> <br/>	
+    		Time: <input type="text" name="Time"/> <br/>
+   			OR_ID: <input type="text" name="OR_id"/> <br/>
+   			Patient_id: <input type="text" name="P_id"/> <br/>
+   			Operation_id: <input type="text" name="O_id"/> <br/>
+   			Doctor_id: <input type="text" name="D_id"/> <br/>
+   			Nurse_id: <input type="text" name="N_id"/> <br/>
+   			
+    		<input type="submit" value="Update Appointment" />
+		</form>
+		
+		<h2>Delete an Appointment</h2>
+		<form name="deleteAllEmps" method="get" action="AppointmentServlet">
+			<p> If you would like to delete an Appointment, enter their ID here: </p> <br/>
+			Id: <input type="text" name="id"/><br/>
+    		<input type="submit" value="Delete Appointment" />
+		</form>
+	</body>
+</html>

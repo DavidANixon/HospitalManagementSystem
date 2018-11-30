@@ -1,5 +1,4 @@
 import java.util.Date;
-import java.time.LocalDate;
 
 public class Patient {
 	private int id;
