@@ -12,7 +12,7 @@ public class EmployeeDAO {
 
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	static final String host = "jdbc:mysql://localhost:3306/Hospital";
-	static final String dbUsername = "anicka";
+	static final String dbUsername = "root";
 	static final String dbPassword = "";
 	
 	InputStream input;
@@ -52,7 +52,7 @@ public class EmployeeDAO {
 	}
 	
 	
-	public Employee getEmployee(int id ) throws Exception {
+	public Employee getEmployee(int id) throws Exception {
 		try {
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
 			preparedStatement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE Employee_ID =" + id);

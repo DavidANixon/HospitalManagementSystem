@@ -59,7 +59,7 @@ public class PatientDAO {
 		}
 	}
 	
-	public Patient getPatient(int id ) throws Exception {
+	public Patient getPatient(int id) throws Exception {
 		try {
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
 			preparedStatement = connection.prepareStatement("SELECT * FROM Patient WHERE Patient_ID =" + id);
