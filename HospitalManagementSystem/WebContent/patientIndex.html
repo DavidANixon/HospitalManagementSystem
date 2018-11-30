@@ -6,65 +6,88 @@
 </head>
 <body>
 	<div id="header">
-		<h1 style="font-size: 40px;"><a href = "index.html" style="color: inherit; text-decoration: none;">
-		CWRU SURGICAL CLINICAL MANAGEMENT
-			SYSTEM</a></h1>
+		<h1 style="font-size: 40px;">
+			<a href="index.html" style="color: inherit; text-decoration: none;">
+				CWRU SURGICAL CLINICAL MANAGEMENT SYSTEM</a>
+		</h1>
 	</div>
-	
+
 	<table>
 		<tr>
-			<td><button class="button" onclick="location.href='appointmentIndex.html'" type="button">
-   			 Appointments</button></td>
-   			 <td><button class="button" onclick="location.href='employeeIndex.html'" type="button">
-   			 Employees</button></td>
-   			 <td><button class="button" onclick="location.href='operatingRoomIndex.html'" type="button">
-   			 Operating Rooms</button></td>
-   			 <td><button class="button" onclick="location.href='operationIndex.html'" type="button">
-   			 Operations</button></td>
-   			 <td><button class="button" onclick="location.href='patientIndex.html'" type="button">
-   			 Patients</button></td>
+			<td><button class="button"
+					onclick="location.href='appointmentIndex.html'" type="button">
+					Appointments</button></td>
+			<td><button class="button"
+					onclick="location.href='employeeIndex.html'" type="button">
+					Employees</button></td>
+			<td><button class="button"
+					onclick="location.href='operatingRoomIndex.html'" type="button">
+					Operating Rooms</button></td>
+			<td><button class="button"
+					onclick="location.href='operationIndex.html'" type="button">
+					Operations</button></td>
+			<td><button class="button"
+					onclick="location.href='patientIndex.html'" type="button">
+					Patients</button></td>
 		</tr>
 	</table>
-		<h2>Show all patients</h2>
+
+	<div class="other-left">
+		<div class="heading-two">
+			<h2>Show all patients</h2>
+		</div>
 		<form name="showAllEmps" method="get" action="PatientServlet">
-			<p> Show all Patients:  </p> <br/>
-			<div style="display:none;"> <input type="text" name="id" value="-1"/> </div><br/>
-			<p>some text here</p><br/>
-    		<input type="submit" value="Show all patients" />
+			<div style="display: none;">
+				<input type="text" name="id" value="-1" />
+			</div>
+			<input type="submit" value="Show all patients" />
 		</form>
-		
-		<h2>Add an Patient</h2>
-		<p><strong>Add an Patient:</strong></p><br/>
-		<form name="addEmpForm" method="post" action="PatientServlet">
-			<div style="display:none;"><input type="text" name="id" value="-1"/></div><br/>
-    		Name: <input type="text" name="Name"/> <br/>
-  			DOB: <input type="date" name="DOB" value="2018-12-04"> <br/>			
-   			Address: <input type="text" name="Address"/> <br/>
-   			Phone: <input type="text" name="Phone"/> <br/>
-   			Illness: <input type="text" name="Illness"/> <br/>
-   			
-    		<input type="submit" value="Add Patient" />
-		</form>
-		
-		<h2>Update an Patient</h2>
-		<p><strong>Update an Patient:</strong></p><br/>
-		<form name="updateEmpForm" method="post" action="PatientServlet">
-			Patient Id: <input type="text" name="id"/><br/>
-			<p>Fill in all fields below: </p>
-    		Name: <input type="text" name="Name"/> <br/>
-  			DOB: <input type="date" name="DOB" value="2018-12-04"> <br/>			
-   			Address: <input type="text" name="Address"/> <br/>
-   			Phone: <input type="text" name="Phone"/> <br/>
-   			Illness: <input type="text" name="Illness"/> <br/>
-   			
-    		<input type="submit" value="Update Patient" />
-		</form>
-		
-		<h2>Delete an Patient</h2>
+	</div>
+
+
+	<div class="other-right">
+		<div class="heading-two">
+			<h2>Delete a Patient</h2>
+		</div>
 		<form name="deleteAllEmps" method="get" action="PatientServlet">
-			<p> If you would like to delete an Patient, enter their ID here: </p> <br/>
-			Id: <input type="text" name="id"/><br/>
-    		<input type="submit" value="Delete Patient" />
+			Enter ID: <input type="text" name="id" /><br /> <input
+				type="submit" value="Delete Patient" />
 		</form>
-	</body>
+	</div>
+
+	<div class="other-left">
+		<div class="heading-two">
+			<h2>Update a Patient</h2>
+		</div>
+		<form name="updateEmpForm" method="post" action="PatientServlet">
+			Patient Id: <input type="text" name="id" /><br /> Name: <input
+				type="text" name="Name" /> <br /> DOB: <input type="date"
+				name="DOB" value="2018-12-04"> <br /> Address: <input
+				type="text" name="Address" /> <br /> Phone: <input type="text"
+				name="Phone" /> <br /> Illness: <input type="text" name="Illness" />
+			<br /> <input type="submit" value="Update Patient" />
+		</form>
+	</div>
+
+
+	<div class="other-right">
+		<div class="heading-two">
+			<h2>Add an Patient</h2>
+		</div>
+		<form name="addEmpForm" method="post" action="PatientServlet">
+			<div style="display: none;">
+				<input type="text" name="id" value="-1" />
+			</div>
+			Name: <input type="text" name="Name" /> <br /> DOB: <input
+				type="date" name="DOB" value="2018-12-04"> <br /> Address:
+			<input type="text" name="Address" /> <br /> Phone: <input
+				type="text" name="Phone" /> <br /> Illness: <input type="text"
+				name="Illness" /> <br /> <input type="submit" value="Add Patient" />
+		</form>
+	</div>
+</body>
+
+<div id="footer">
+	<p>&#169;2018 | Created by The Best Team 17 & Vincent</p>
+</div>
 </html>
