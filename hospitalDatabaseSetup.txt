@@ -1,0 +1,43 @@
+create database Hospital;
+use Hospital;
+create table Employee (Employee_ID int AUTO_INCREMENT PRIMARY KEY, Name varChar(255) NOT NULL, Age int, Phone varChar(255), Office varChar(255), Specialty varChar(255) NOT NULL);
+create table Patient (Patient_ID int AUTO_INCREMENT PRIMARY KEY, Name varChar(255) NOT NULL, DOB date NOT NULL, Address varChar(255), Phone varChar(255), Illness varChar(255) NOT NULL);
+create table Operation (Operation_ID int AUTO_INCREMENT PRIMARY KEY, Name varChar(225) NOT NULL, Illness varChar(255) NOT NULL, Specialty varChar(255) NOT NULL, Duration int NOT NULL);
+create table Operating_Room (OR_ID int AUTO_INCREMENT PRIMARY KEY, Building varChar(255) NOT NULL, Room_Number int NOT NULL);
+create table Appointment (Appointment_ID int AUTO_INCREMENT PRIMARY KEY, 
+							Date date NOT NULL, Time int NOT NULL, OR_ID int NOT NULL, Patient_ID int NOT NULL,
+							Operation_ID int NOT NULL, Doctor_ID int NOT NULL, Nurse_ID int NOT NULL,
+							constraint fk_appointment_OR FOREIGN KEY (OR_ID) references Operating_Room(OR_ID),
+							constraint fk_appointment_Patient FOREIGN KEY (Patient_ID) references Patient(Patient_ID),
+							constraint fk_appointment_Operation FOREIGN KEY (Operation_ID) references Operation(Operation_ID),
+							constraint fk_appointment_Doctor FOREIGN KEY (Doctor_ID) references Employee(Employee_ID),
+							constraint fk_appointment_Nurse FOREIGN KEY (Nurse_ID) references Employee(Employee_ID));
+							
+							
+
+insert into Employee values (null, 'Meredith Gray', 40, '1234567890', 'Grey Sloan #209', 'General Surgery');
+insert into Employee values (null, 'Cristina Yang', 40, '4321123467', null, 'Cardiothorasic');
+insert into Employee values (null, 'Jackson Avery', 30, '3425892345', 'Grey Sloan #450', 'Plastics');
+insert into Employee values (null, 'Owen Hunt', 45, ' 3498523485', 'Grey Sloan #329', 'Trauma');
+insert into Employee values (null, 'Derek Sheperd', 50, '5497468514', 'Grey Sloan #349', 'Neurosurgery');
+insert into Employee values (null, 'Alex Karev', 35, '8347291234', 'Grey Sloan #143', 'Pediatrics');
+insert into Employee values (null, 'Pam Smith', 30, '3472371893', null, 'Nursing');
+
+insert into Patient values(null, 'Jane Doe', '1970-05-13', '12 Large Ln', '1234763214', 'Heart Attack');
+insert into Patient values(null, 'John Doe', '1980-12-06', '2345 Chicken Rd', '2341547901', 'Aneurysm');
+insert into Patient values(null, 'Jill Smith', '1990-10-26', '7623 idk Ct', '7462908325', 'Appendicitis');
+
+insert into Operation values(null, 'Endovascular Aneurysm Repair', 'Aneurysm', 'Neurosurgery', 6);
+insert into Operation values(null, 'Coronart Artery Bypass', 'Heart Attack', 'Cardiothorasic', 4);
+insert into Operation values(null, 'Heart Valve Replacement', 'Heart Attack', 'Cardiothorasic', 3);
+insert into Operation values(null, 'Appendectomy', 'Appendicitis', 'General Surgery', 1);
+insert into Operation values(null, 'Appendectomy', 'Appendicitis', 'Plastics', 2);
+insert into Operation values(null, 'Appendectomy', 'Appendicitis', 'Pediatrics', 2);
+
+insert into Operating_Room values (null, 'Rockefeller', 1);
+insert into Operating_Room values(null, 'Rockefeller', 2);
+insert into Operating_Room values(null, 'Rockefeller', 3);
+insert into Operating_Room values(null, 'Strosacker', 1);
+insert into Operating_Room values(null, 'Strosacker', 2);
+
+insert into Appointment values (null, '2018-11-26', 18, 1, 1, 3, 2, 7);

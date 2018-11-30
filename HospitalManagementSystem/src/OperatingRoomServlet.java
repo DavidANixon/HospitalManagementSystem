@@ -1,38 +1,39 @@
-import java.io.*;
-import java.sql.SQLException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-public class EmployeeServlet extends HttpServlet {
-	EmployeeDAO edao;
+public class OperatingRoomServlet extends HttpServlet {
+	OperatingRoomDAO pdao;
 
 	public void init() throws ServletException {
-		edao = new EmployeeDAO();
+		pdao = new OperatingRoomDAO();
 	}
-	
-	//Return a list of all employees
+	//Return a list of all OperatingRooms
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// Setting up the content type of webpage
 		response.setContentType("text/html");
 		// Writing message to the web page
 		PrintWriter out = response.getWriter();
-		out.println("<h1>" + "List all Employees" + "</h1>");
-		EmployeeDAO edao = new EmployeeDAO();
+		out.println("<h1>" + "List all OperatingRooms" + "</h1>");
+		OperatingRoomDAO pdao = new OperatingRoomDAO();
 		String id = request.getParameter("id");
 		if(id.equals("-1")) {
-			List<Employee> lst = new ArrayList<Employee>();
+			List<OperatingRoom> lst = new ArrayList<OperatingRoom>();
 			try {
 				//Get all initial data
-				lst = edao.getAllEmployees();
+				lst = pdao.getAllOperatingRooms();
 				if(lst != null) {
-					out.println("<p> <strong> ID | Name        | Age | Phone     | Office    | Specialty </strong></p>");
+					out.println("<p> <strong> ID | Building        | Room Number </strong></p>");
 					for(int i = 0; i < lst.size(); i++) {
-						Employee tempE = lst.get(i);
-						out.println("<p>" + tempE.getId() + " | " +  tempE.getName() + " | " + tempE.getAge() + " | " + tempE.getPhone() +" | " + tempE.getOffice() + " | " + tempE.getSpecialty() + "</p>");
+						OperatingRoom tempP = lst.get(i);
+						out.println("<p>" + tempP.getId() + " | " +  tempP.getBuilding() + " | " + tempP.getRoomNumber() + "</p>");
 					}
 				}else {
 					out.println("<p>" + "There is no data in the table or a table was not found." + "<p>");
@@ -45,8 +46,8 @@ public class EmployeeServlet extends HttpServlet {
 				out.println("<p> Input not valid</p>");
 			}else {
 				try {
-					edao.deleteEmployee(Integer.parseInt(id));
-					out.println("<p> Employee Deleted</p>");
+					pdao.deleteOperatingRoom(Integer.parseInt(id));
+					out.println("<p> OperatingRoom Deleted</p>");
 				}catch (Exception e) {
 					
 				}
@@ -54,28 +55,27 @@ public class EmployeeServlet extends HttpServlet {
 		}
 	}
 	
-	//Add a new employee
+	//Add a new OperatingRoom
 	protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         // read form fields
 		String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String age = request.getParameter("age");
-        String phone = request.getParameter("phone");
-        String office = request.getParameter("office");
-        String specialty = request.getParameter("specialty");
+        String building = request.getParameter("Building");
+        String roomNumber = request.getParameter("RoomNumber");
+
+        OperatingRoomDAO pdao = new OperatingRoomDAO();
+       
         
-        EmployeeDAO edao = new EmployeeDAO();
         if(id.equals("-1")) {
         	try {
-    			Employee e = new Employee(3, name, Integer.parseInt(age), phone, office, specialty);
-    			edao.addEmployee(e);
+    			OperatingRoom p = new OperatingRoom(3, building, Integer.parseInt(roomNumber));
+    			pdao.addOperatingRoom(p);
     			
     			// get response writer
     	        PrintWriter writer = response.getWriter();
     	        // build HTML code
     	        String htmlRespone = "<html>";
-    	        htmlRespone += "<h2> Employee Added. </br></h2>";
+    	        htmlRespone += "<h2> OperatingRoom Added. </br></h2>";
     	        htmlRespone += "</html>";
     	        writer.println(htmlRespone);
     		} catch (Exception e) {
@@ -83,13 +83,13 @@ public class EmployeeServlet extends HttpServlet {
     		}
         }else {
         	try {
-    			Employee e = new Employee(Integer.parseInt(id), name, Integer.parseInt(age), phone, office, specialty);
-    			edao.updateEmployee(e);
+    			OperatingRoom p = new OperatingRoom(Integer.parseInt(id), building, Integer.parseInt(roomNumber));
+    			pdao.updateOperatingRoom(p);
     			 // get response writer
     	        PrintWriter writer = response.getWriter();
     	        // build HTML code
     	        String htmlRespone = "<html>";
-    	        htmlRespone += "<h2> Employee Updated. </br></h2>";
+    	        htmlRespone += "<h2> OperatingRoom Updated. </br></h2>";
     	        htmlRespone += "</html>";
     	        writer.println(htmlRespone);
     		} catch (Exception e) {
@@ -100,5 +100,4 @@ public class EmployeeServlet extends HttpServlet {
        
         //TODO: Add a back button so the user can return to the previous page        
     }
-	
 }

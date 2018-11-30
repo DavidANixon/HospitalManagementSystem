@@ -4,7 +4,7 @@ public class OperatingRoom {
 	private int roomNumber;
 	private String building;
 	
-	public OperatingRoom(int id, int roomNumber, String building) {
+	public OperatingRoom(int id, String building,  int roomNumber) {
 		this.id = id;
 		this.roomNumber = roomNumber;
 		this.building = building;

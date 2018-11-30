@@ -1,14 +1,17 @@
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppointmentDAO {
+public class PatientDAO {
 	private Connection connection = null;
 	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
@@ -21,7 +24,7 @@ public class AppointmentDAO {
 	
 	InputStream input;
 	
-	public AppointmentDAO() {
+	public PatientDAO() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -29,31 +32,24 @@ public class AppointmentDAO {
 			e.printStackTrace();
 		}
 	}
-	//| Appointment_ID | Date       | Time | OR_ID | Patient_ID | Operation_ID | Doctor_ID | Nurse_ID |
-
 	
-	public void addAppointment(Appointment p) throws ClassNotFoundException {
+	public void addPatient(Patient p) throws ClassNotFoundException {
 		try {
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
 		      // the mysql insert statement
-		      String query = "insert into Appointment(Date, Time, OR_ID, Patient_ID, Operation_ID, Doctor_ID, Nurse_ID)"
-		        + " values (?, ?, ?, ?, ?, ?, ?)";
+		      String query = "insert into Patient(Name, DOB, Address, Phone, Illness)"
+		        + " values (?, ?, ?, ?, ?)";
 		      
-		      java.util.Date utilStartDate = p.getDate();
+		      java.util.Date utilStartDate = p.getDOB();
 		      java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
 		      
 		      // create the mysql insert preparedstatement
 		      PreparedStatement preparedStmt = connection.prepareStatement(query);
-		  
-		      preparedStmt.setDate(1, sqlStartDate);
-		      preparedStmt.setInt(2, p.getTime());
-		      preparedStmt.setInt(3, p.getOr_id());
-		      preparedStmt.setInt(4, p.getPatient_id());
-		      preparedStmt.setInt(5, p.getOperation_id());
-		      preparedStmt.setInt(6, p.getDoctor_id());
-		      preparedStmt.setInt(7, p.getNurse_id());
-		      System.out.println("********");
-		      System.out.println(preparedStmt);
+		      preparedStmt.setString(1, p.getName());
+		      preparedStmt.setDate(2, sqlStartDate);
+		      preparedStmt.setString(3, p.getAddress());
+		      preparedStmt.setString(4, p.getPhoneNumber());
+		      preparedStmt.setString(5, p.getIllness());
 
 		      // execute the preparedstatement
 		      preparedStmt.execute();
@@ -63,21 +59,19 @@ public class AppointmentDAO {
 		}
 	}
 	
-	public Appointment getAppointment(int id ) throws Exception {
+	public Patient getPatient(int id ) throws Exception {
 		try {
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-			preparedStatement = connection.prepareStatement("SELECT * FROM Appointment WHERE Appointment_ID =" + id);
+			preparedStatement = connection.prepareStatement("SELECT * FROM Patient WHERE Patient_ID =" + id);
 			resultSet = preparedStatement.executeQuery();
-			Appointment emp = null;
+			Patient emp = null;
 			while(resultSet.next()) {
-				emp = new Appointment(id, 
-									resultSet.getDate(1), 
-									resultSet.getInt(2),
-									resultSet.getInt(3),
-									resultSet.getInt(4),
-									resultSet.getInt(5),
-									resultSet.getInt(6),
-									resultSet.getInt(7)); 
+				emp = new Patient(id, 
+									resultSet.getString(2), 
+									resultSet.getDate(3), 
+									resultSet.getString(4), 
+									resultSet.getString(5), 
+									resultSet.getString(6)); 
 			}
 			return emp;
 		}
@@ -96,22 +90,20 @@ public class AppointmentDAO {
 		return null;
 	}
 	
-	public List<Appointment> getAllAppointments() throws Exception {
+	public List<Patient> getAllPatients() throws Exception {
 		try {
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-			preparedStatement = connection.prepareStatement("SELECT * FROM Appointment");
+			preparedStatement = connection.prepareStatement("SELECT * FROM Patient");
 			resultSet = preparedStatement.executeQuery();
 			
-			List<Appointment> allEmps = new ArrayList<Appointment>();
+			List<Patient> allEmps = new ArrayList<Patient>();
 			while(resultSet.next()) {
-				Appointment emp = new Appointment(resultSet.getInt(1), 
-						resultSet.getDate(2), 
-						resultSet.getInt(3),
-						resultSet.getInt(4),
-						resultSet.getInt(5),
-						resultSet.getInt(6),
-						resultSet.getInt(7),
-						resultSet.getInt(8));  
+				Patient emp = new Patient(resultSet.getInt(1), 
+						resultSet.getString(2), 
+						resultSet.getDate(3), 
+						resultSet.getString(4), 
+						resultSet.getString(5), 
+						resultSet.getString(6)); 
 				allEmps.add(emp);
 			}			
 			return allEmps;
@@ -133,25 +125,23 @@ public class AppointmentDAO {
 		return null;
 	}
 
-	public void updateAppointment(Appointment p) throws ClassNotFoundException {
+	public void updatePatient(Patient p) throws ClassNotFoundException {
 		try {
 			//Connect to server and database
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);     
 		    //Initialize Statement
 		    statement=connection.createStatement();
 		    
-		    java.util.Date utilStartDate = p.getDate();
+		    java.util.Date utilStartDate = p.getDOB();
 		      java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
 		    //SQL Query
-		    String updatequery="UPDATE Appointment SET "
-		    								+ "Date="+ "\"" + sqlStartDate + "\""
-		    								+ ", Time=" + p.getTime()
-		    								+ ", OR_ID=" + p.getOr_id()
-		    								+ ", Patient_ID=" + p.getPatient_id()
-		    								+ ", Operation_ID="+ p.getOperation_id()
-		    								+ ", Doctor_ID="+ p.getDoctor_id()
-		    								+ ", Nurse_ID="+ p.getNurse_id()
-		    								+ " Where Appointment_ID=" + p.getId();
+		    String updatequery="UPDATE Patient SET "
+		    								+ "Name="+ "\"" + p.getName() + "\""
+		    								+ ", DOB=" + "\"" + sqlStartDate + "\""
+		    								+ ", Address=" + "\"" + p.getAddress() + "\""
+		    								+ ", Phone=" + "\"" + p.getPhoneNumber() + "\""
+		    								+ ", Illness="+ "\"" + p.getIllness()+ "\""
+		    								+ " Where Patient_ID=" + p.getId();
 		    //Run Query
 		    statement.executeUpdate(updatequery);
 	    } catch (SQLException e3) {
@@ -162,14 +152,14 @@ public class AppointmentDAO {
 	    }
 	}
 	
-	public void deleteAppointment(int id) throws ClassNotFoundException {
+	public void deletePatient(int id) throws ClassNotFoundException {
 		try {
 			//Connect to server and database
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);     
 		    //Initialize Statement
 		    statement=connection.createStatement();
 		    //SQL Query
-		    String deletequery="DELETE FROM Appointment WHERE Appointment_ID=" + id;
+		    String deletequery="DELETE FROM Patient WHERE Patient_ID=" + id;
 		    //Run Query
 		    statement.executeUpdate(deletequery);
 	    } catch (SQLException e4) {

@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppointmentDAO {
+public class OperationDAO {
 	private Connection connection = null;
 	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
@@ -21,7 +21,7 @@ public class AppointmentDAO {
 	
 	InputStream input;
 	
-	public AppointmentDAO() {
+	public OperationDAO() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -29,31 +29,22 @@ public class AppointmentDAO {
 			e.printStackTrace();
 		}
 	}
-	//| Appointment_ID | Date       | Time | OR_ID | Patient_ID | Operation_ID | Doctor_ID | Nurse_ID |
-
 	
-	public void addAppointment(Appointment p) throws ClassNotFoundException {
+	public void addOperation(Operation o) throws ClassNotFoundException {
 		try {
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
 		      // the mysql insert statement
-		      String query = "insert into Appointment(Date, Time, OR_ID, Patient_ID, Operation_ID, Doctor_ID, Nurse_ID)"
-		        + " values (?, ?, ?, ?, ?, ?, ?)";
+		      String query = "insert into Operation(Name, Illness, Specialty, Duration)"
+		        + " values (?, ?, ?, ?)";
 		      
-		      java.util.Date utilStartDate = p.getDate();
-		      java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
-		      
+
+		//| Operation_ID | Name    | Illness      | Specialty       | Duration
 		      // create the mysql insert preparedstatement
 		      PreparedStatement preparedStmt = connection.prepareStatement(query);
-		  
-		      preparedStmt.setDate(1, sqlStartDate);
-		      preparedStmt.setInt(2, p.getTime());
-		      preparedStmt.setInt(3, p.getOr_id());
-		      preparedStmt.setInt(4, p.getPatient_id());
-		      preparedStmt.setInt(5, p.getOperation_id());
-		      preparedStmt.setInt(6, p.getDoctor_id());
-		      preparedStmt.setInt(7, p.getNurse_id());
-		      System.out.println("********");
-		      System.out.println(preparedStmt);
+		      preparedStmt.setString(1, o.getName());
+		      preparedStmt.setString(2, o.getIllness());
+		      preparedStmt.setString(3, o.getSpecialty());
+		      preparedStmt.setInt(4, o.getDuration());
 
 		      // execute the preparedstatement
 		      preparedStmt.execute();
@@ -63,21 +54,18 @@ public class AppointmentDAO {
 		}
 	}
 	
-	public Appointment getAppointment(int id ) throws Exception {
+	public Operation getOperation(int id ) throws Exception {
 		try {
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-			preparedStatement = connection.prepareStatement("SELECT * FROM Appointment WHERE Appointment_ID =" + id);
+			preparedStatement = connection.prepareStatement("SELECT * FROM Operation WHERE Operation_ID =" + id);
 			resultSet = preparedStatement.executeQuery();
-			Appointment emp = null;
+			Operation emp = null;
 			while(resultSet.next()) {
-				emp = new Appointment(id, 
-									resultSet.getDate(1), 
-									resultSet.getInt(2),
-									resultSet.getInt(3),
-									resultSet.getInt(4),
-									resultSet.getInt(5),
-									resultSet.getInt(6),
-									resultSet.getInt(7)); 
+				emp = new Operation(id, 
+									resultSet.getString(2), 
+									resultSet.getString(3), 
+									resultSet.getString(4), 
+									resultSet.getInt(5)); 
 			}
 			return emp;
 		}
@@ -96,22 +84,19 @@ public class AppointmentDAO {
 		return null;
 	}
 	
-	public List<Appointment> getAllAppointments() throws Exception {
+	public List<Operation> getAllOperations() throws Exception {
 		try {
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
-			preparedStatement = connection.prepareStatement("SELECT * FROM Appointment");
+			preparedStatement = connection.prepareStatement("SELECT * FROM Operation");
 			resultSet = preparedStatement.executeQuery();
 			
-			List<Appointment> allEmps = new ArrayList<Appointment>();
+			List<Operation> allEmps = new ArrayList<Operation>();
 			while(resultSet.next()) {
-				Appointment emp = new Appointment(resultSet.getInt(1), 
-						resultSet.getDate(2), 
-						resultSet.getInt(3),
-						resultSet.getInt(4),
-						resultSet.getInt(5),
-						resultSet.getInt(6),
-						resultSet.getInt(7),
-						resultSet.getInt(8));  
+				Operation emp = new Operation(resultSet.getInt(1), 
+						resultSet.getString(2), 
+						resultSet.getString(3), 
+						resultSet.getString(4), 
+						resultSet.getInt(5));  
 				allEmps.add(emp);
 			}			
 			return allEmps;
@@ -133,25 +118,20 @@ public class AppointmentDAO {
 		return null;
 	}
 
-	public void updateAppointment(Appointment p) throws ClassNotFoundException {
+	public void updateOperation(Operation p) throws ClassNotFoundException {
 		try {
 			//Connect to server and database
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);     
 		    //Initialize Statement
 		    statement=connection.createStatement();
 		    
-		    java.util.Date utilStartDate = p.getDate();
-		      java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
 		    //SQL Query
-		    String updatequery="UPDATE Appointment SET "
-		    								+ "Date="+ "\"" + sqlStartDate + "\""
-		    								+ ", Time=" + p.getTime()
-		    								+ ", OR_ID=" + p.getOr_id()
-		    								+ ", Patient_ID=" + p.getPatient_id()
-		    								+ ", Operation_ID="+ p.getOperation_id()
-		    								+ ", Doctor_ID="+ p.getDoctor_id()
-		    								+ ", Nurse_ID="+ p.getNurse_id()
-		    								+ " Where Appointment_ID=" + p.getId();
+		    String updatequery="UPDATE Operation SET "
+		    								+ "Name="+ "\"" + p.getName() + "\""
+		    								+ ", Illness=" + "\"" + p.getIllness() + "\""
+		    								+ ", Specialty=" + "\"" + p.getSpecialty() + "\""
+		    								+ ", Duration=" + p.getDuration()
+		    								+ " Where Operation_ID=" + p.getId();
 		    //Run Query
 		    statement.executeUpdate(updatequery);
 	    } catch (SQLException e3) {
@@ -162,14 +142,14 @@ public class AppointmentDAO {
 	    }
 	}
 	
-	public void deleteAppointment(int id) throws ClassNotFoundException {
+	public void deleteOperation(int id) throws ClassNotFoundException {
 		try {
 			//Connect to server and database
 			connection = DriverManager.getConnection(host, dbUsername, dbPassword);     
 		    //Initialize Statement
 		    statement=connection.createStatement();
 		    //SQL Query
-		    String deletequery="DELETE FROM Appointment WHERE Appointment_ID=" + id;
+		    String deletequery="DELETE FROM Operation WHERE Operation_ID=" + id;
 		    //Run Query
 		    statement.executeUpdate(deletequery);
 	    } catch (SQLException e4) {

@@ -8,15 +8,56 @@
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
+    <welcome-file>appointmentIndex.html</welcome-file>
+    <welcome-file>employeeIndex.html</welcome-file>
+    <welcome-file>operatingRoomIndex.html</welcome-file>
+    <welcome-file>operationIndex.html</welcome-file>
+    <welcome-file>patientIndex.html</welcome-file>
   </welcome-file-list>
   
   <servlet>
 	<servlet-name>HospitalEmployeeServlet</servlet-name>
 	<servlet-class>EmployeeServlet</servlet-class>
   </servlet>
-	
   <servlet-mapping>
 	<servlet-name>HospitalEmployeeServlet</servlet-name>
 	<url-pattern>/EmployeeServlet</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+	<servlet-name>HospitalPatientServlet</servlet-name>
+	<servlet-class>PatientServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>HospitalPatientServlet</servlet-name>
+	<url-pattern>/PatientServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>HospitalOperationServlet</servlet-name>
+	<servlet-class>OperationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>HospitalOperationServlet</servlet-name>
+	<url-pattern>/OperationServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>HospitalOperatingRoomServlet</servlet-name>
+	<servlet-class>OperatingRoomServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>HospitalOperatingRoomServlet</servlet-name>
+	<url-pattern>/OperatingRoomServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+	<servlet-name>HospitalAppointmentServlet</servlet-name>
+	<servlet-class>AppointmentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>HospitalAppointmentServlet</servlet-name>
+	<url-pattern>/AppointmentServlet</url-pattern>
   </servlet-mapping>
 </web-app>
