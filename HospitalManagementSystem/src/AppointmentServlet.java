@@ -13,10 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AppointmentServlet extends HttpServlet {
-	AppointmentDAO pdao;
+	AppointmentDAO adao;
+	EmployeeDAO edao;
+	PatientDAO pdao;
+	OperatingRoomDAO ordao;
+	OperationDAO odao;
 
 	public void init() throws ServletException {
-		pdao = new AppointmentDAO();
+		adao = new AppointmentDAO();
+		edao = new EmployeeDAO();
+		pdao = new PatientDAO();
+		ordao = new OperatingRoomDAO();
+		odao = new OperationDAO();
+		
 	}
 	//Return a list of all Appointments
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -26,13 +35,12 @@ public class AppointmentServlet extends HttpServlet {
 		// Writing message to the web page
 		PrintWriter out = response.getWriter();
 		out.println("<h1>" + "List all Appointments" + "</h1>");
-		AppointmentDAO pdao = new AppointmentDAO();
 		String id = request.getParameter("id");
 		if(id.equals("-1")) {
 			List<Appointment> lst = new ArrayList<Appointment>();
 			try {
 				//Get all initial data
-				lst = pdao.getAllAppointments();
+				lst = adao.getAllAppointments();
 				if(lst != null) {
 					//| Appointment_ID | Date       | Time | OR_ID | Patient_ID | Operation_ID | Doctor_ID | Nurse_ID |
 					out.println("<p> <strong> ID | Date | Time | OR_ID | Patient_ID | Operation_ID | Doctor_ID | Nurse_ID </strong></p>");
@@ -51,7 +59,7 @@ public class AppointmentServlet extends HttpServlet {
 				out.println("<p> Input not valid</p>");
 			}else {
 				try {
-					pdao.deleteAppointment(Integer.parseInt(id));
+					adao.deleteAppointment(Integer.parseInt(id));
 					out.println("<p> Appointment Deleted</p>");
 				}catch (Exception e) {
 					
@@ -74,27 +82,46 @@ public class AppointmentServlet extends HttpServlet {
         String dId = request.getParameter("D_id");
         String nId = request.getParameter("N_id");
 
-        AppointmentDAO pdao = new AppointmentDAO();
         System.out.println("We have a date " + dateStr);
         DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
         Date date = null;
 		try {
 			date = format.parse(dateStr);
 		} catch (ParseException e1) {
-			System.out.println("rip");
 			e1.printStackTrace();
 		}
         
         if(id.equals("-1")) {
         	try {
     			Appointment p = new Appointment(3, date, Integer.parseInt(time), Integer.parseInt(orId), Integer.parseInt(pId), Integer.parseInt(oId), Integer.parseInt(dId),Integer.parseInt(nId));
-    			pdao.addAppointment(p);
+    			adao.addAppointment(p);
+    			
+    			//Get data for response message
+    			Employee dr = edao.getEmployee(Integer.parseInt(dId));
+    			Employee nurse = edao.getEmployee(Integer.parseInt(nId));
+    			Operation op = odao.getOperation(Integer.parseInt(oId));
+    			OperatingRoom oprm = ordao.getOperatingRoom(Integer.parseInt(orId));
+    			Patient pt = pdao.getPatient(Integer.parseInt(pId));
     			
     			// get response writer
     	        PrintWriter writer = response.getWriter();
+    	        
     	        // build HTML code
     	        String htmlRespone = "<html>";
-    	        htmlRespone += "<h2> Appointment Added. </br></h2>";
+    	        htmlRespone = "<h1> Success! </h1>";
+    	        htmlRespone += "<p>The appointment for " + pt.getName() 
+    	        								 + " on " + date 
+    	        								 + " with Dr. " + dr.getName()
+    	        								 + " and Nurse " + nurse.getName()
+    	        								 + " in " + oprm.getBuilding() + " " + oprm.getRoomNumber()
+    	        								 + " has been scheduled. </br></p>";
+    	        htmlRespone += "<button onclick=\"goBack()\">Finish</button>\n" + 
+    	        		"\n" + 
+    	        		"<script>\n" + 
+    	        		"function goBack() {\n" + 
+    	        		"    window.history.back();\n" + 
+    	        		"}\n" + 
+    	        		"</script>";
     	        htmlRespone += "</html>";
     	        writer.println(htmlRespone);
     		} catch (Exception e) {
@@ -103,20 +130,24 @@ public class AppointmentServlet extends HttpServlet {
         }else {
         	try {
     			Appointment p = new Appointment(Integer.parseInt(id), date, Integer.parseInt(time), Integer.parseInt(orId), Integer.parseInt(pId), Integer.parseInt(oId), Integer.parseInt(dId),Integer.parseInt(nId));
-    			pdao.updateAppointment(p);
+    			adao.updateAppointment(p);
     			 // get response writer
     	        PrintWriter writer = response.getWriter();
     	        // build HTML code
     	        String htmlRespone = "<html>";
     	        htmlRespone += "<h2> Appointment Updated. </br></h2>";
+    	        htmlRespone += "<button onclick=\"goBack()\">Finish</button>\n" + 
+    	        		"\n" + 
+    	        		"<script>\n" + 
+    	        		"function goBack() {\n" + 
+    	        		"    window.history.back();\n" + 
+    	        		"}\n" + 
+    	        		"</script>";
     	        htmlRespone += "</html>";
     	        writer.println(htmlRespone);
     		} catch (Exception e) {
     			e.printStackTrace();
     		}
         }
-        
-       
-        //TODO: Add a back button so the user can return to the previous page        
     }
 }

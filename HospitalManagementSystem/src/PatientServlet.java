@@ -91,6 +91,13 @@ public class PatientServlet extends HttpServlet {
     	        // build HTML code
     	        String htmlRespone = "<html>";
     	        htmlRespone += "<h2> Patient Added. </br></h2>";
+    	        htmlRespone += "<button onclick=\"goBack()\">Finish</button>\n" + 
+    	        		"\n" + 
+    	        		"<script>\n" + 
+    	        		"function goBack() {\n" + 
+    	        		"    window.history.back();\n" + 
+    	        		"}\n" + 
+    	        		"</script>";
     	        htmlRespone += "</html>";
     	        writer.println(htmlRespone);
     		} catch (Exception e) {
@@ -105,6 +112,13 @@ public class PatientServlet extends HttpServlet {
     	        // build HTML code
     	        String htmlRespone = "<html>";
     	        htmlRespone += "<h2> Patient Updated. </br></h2>";
+    	        htmlRespone += "<button onclick=\"goBack()\">Finish</button>\n" + 
+    	        		"\n" + 
+    	        		"<script>\n" + 
+    	        		"function goBack() {\n" + 
+    	        		"    window.history.back();\n" + 
+    	        		"}\n" + 
+    	        		"</script>";
     	        htmlRespone += "</html>";
     	        writer.println(htmlRespone);
     		} catch (Exception e) {
