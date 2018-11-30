@@ -22,12 +22,13 @@ body {
 }
 
 #footer {
-	height: 40px;
+	height: 35px;
 	bottom: 0px;
 	left: 0px;
 	background: #77A6F7;
 	width: 100%;
 	text-align: center;
+	vertical-align: center;
 	color: #ffffff;
 	position: fixed;
 	align-items: center;
@@ -57,7 +58,25 @@ body {
 	border-radius: 10px;
 }
 
-#heading-two {
+.other-left {
+	width: 40%;
+	float: left;
+	color: #000000;
+	margin: 30px;
+	margin-top: 60px;
+	border-radius: 10px;
+}
+
+.other-right{
+	width: 40%;
+	float: right;
+	color: #000000;
+	margin: 30px;
+	margin-top: 60px;
+	border-radius: 10px;
+}
+
+.heading-two {
 	word-spacing: 3px;
 	text-align: center;
 	color: #00887A;
@@ -117,6 +136,7 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color: #FFCCBC;
+    color: #000000;
 }
 
 table {

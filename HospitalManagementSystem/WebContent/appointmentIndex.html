@@ -7,69 +7,86 @@
 </head>
 <body>
 	<div id="header">
-		<h1 style="font-size: 40px;"><a href = "index.html" style="color: inherit; text-decoration: none;">
-		CWRU SURGICAL CLINICAL MANAGEMENT
-			SYSTEM</a></h1>
+		<h1 style="font-size: 40px;">
+			<a href="index.html" style="color: inherit; text-decoration: none;">
+				CWRU SURGICAL CLINICAL MANAGEMENT SYSTEM</a>
+		</h1>
 	</div>
 
 	<table>
 		<tr>
-			<td><button class="button" onclick="location.href='appointmentIndex.html'" type="button">
-   			 Appointments</button></td>
-   			 <td><button class="button" onclick="location.href='employeeIndex.html'" type="button">
-   			 Employees</button></td>
-   			 <td><button class="button" onclick="location.href='operatingRoomIndex.html'" type="button">
-   			 Operating Rooms</button></td>
-   			 <td><button class="button" onclick="location.href='operationIndex.html'" type="button">
-   			 Operations</button></td>
-   			 <td><button class="button" onclick="location.href='patientIndex.html'" type="button">
-   			 Patients</button></td>
+			<td><button class="button"
+					onclick="location.href='appointmentIndex.html'" type="button">
+					Appointments</button></td>
+			<td><button class="button"
+					onclick="location.href='employeeIndex.html'" type="button">
+					Employees</button></td>
+			<td><button class="button"
+					onclick="location.href='operatingRoomIndex.html'" type="button">
+					Operating Rooms</button></td>
+			<td><button class="button"
+					onclick="location.href='operationIndex.html'" type="button">
+					Operations</button></td>
+			<td><button class="button"
+					onclick="location.href='patientIndex.html'" type="button">
+					Patients</button></td>
 		</tr>
 	</table>
-		<h2>Show all Appointments</h2>
+
+	<div class="other-left">
+		<div class="heading-two">
+			<h2>Show all Appointments</h2>
+		</div>
 		<form name="showAllEmps" method="get" action="AppointmentServlet">
-			<p> Show all Appointments:  </p> <br/>
-			<div style="display:none;"> <input type="text" name="id" value="-1"/> </div><br/>
-			<p>some text here</p><br/>
-    		<input type="submit" value="Show all Appointments" />
+			<div style="display: none;">
+				<input type="text" name="id" value="-1" />
+			</div>
+			<input type="submit" value="Show all Appointments" />
 		</form>
-		
-		<h2>Add an Appointment</h2>
-		<p><strong>Add an Appointment:</strong></p><br/>
-		<form name="addEmpForm" method="post" action="AppointmentServlet">
-			<div style="display:none;"><input type="text" name="id" value="-1"/></div><br/>
-    		Date: <input type="date" name="Date" value="2018-12-04"> <br/>	
-    		Time: <input type="text" name="Time"/> <br/>
-   			OR_ID: <input type="text" name="OR_id"/> <br/>
-   			Patient_id: <input type="text" name="P_id"/> <br/>
-   			Operation_id: <input type="text" name="O_id"/> <br/>
-   			Doctor_id: <input type="text" name="D_id"/> <br/>
-   			Nurse_id: <input type="text" name="N_id"/> <br/>
-   			
-    		<input type="submit" value="Add Appointment" />
-		</form>
-		
-		<h2>Update an Appointment</h2>
-		<p><strong>Update an Appointment:</strong></p><br/>
-		<form name="updateEmpForm" method="post" action="AppointmentServlet">
-			Appointment Id: <input type="text" name="id"/><br/>
-			<p>Fill in all fields below: </p>
-    		Date: <input type="date" name="Date" value="2018-12-04"> <br/>	
-    		Time: <input type="text" name="Time"/> <br/>
-   			OR_ID: <input type="text" name="OR_id"/> <br/>
-   			Patient_id: <input type="text" name="P_id"/> <br/>
-   			Operation_id: <input type="text" name="O_id"/> <br/>
-   			Doctor_id: <input type="text" name="D_id"/> <br/>
-   			Nurse_id: <input type="text" name="N_id"/> <br/>
-   			
-    		<input type="submit" value="Update Appointment" />
-		</form>
-		
-		<h2>Delete an Appointment</h2>
+	</div>
+
+	<div class="other-right">
+		<div class="heading-two">
+			<h2>Delete an Appointment</h2>
+		</div>
 		<form name="deleteAllEmps" method="get" action="AppointmentServlet">
-			<p> If you would like to delete an Appointment, enter their ID here: </p> <br/>
-			Id: <input type="text" name="id"/><br/>
-    		<input type="submit" value="Delete Appointment" />
+			Enter ID: <input type="text" name="id" /><br /> <input
+				type="submit" value="Delete Appointment" />
 		</form>
-	</body>
+	</div>
+	
+		<div class="other-left">
+		<div class="heading-two">
+			<h2>Update an Appointment</h2>
+		</div>
+		<form name="updateEmpForm" method="post" action="AppointmentServlet">
+			Appointment Id: <input type="text" name="id" /><br />
+			Date: <input type="date" name="Date" value="2018-12-04"> <br />
+			Time: <input type="text" name="Time" /> <br /> OR_ID: <input
+				type="text" name="OR_id" /> <br /> Patient_id: <input type="text"
+				name="P_id" /> <br /> Operation_id: <input type="text" name="O_id" />
+			<br /> Doctor_id: <input type="text" name="D_id" /> <br />
+			Nurse_id: <input type="text" name="N_id" /> <br /> <input
+				type="submit" value="Update Appointment" />
+		</form>
+	</div>
+
+	<div class="other-right">
+		<div class="heading-two">
+			<h2>Add an Appointment</h2>
+		</div>
+		<form name="addEmpForm" method="post" action="AppointmentServlet">
+			<div style="display: none;">
+				<input type="text" name="id" value="-1" />
+			</div>
+			<br /> Date: <input type="date" name="Date" value="2018-12-04">
+			<br /> Time: <input type="text" name="Time" /> <br /> OR_ID: <input
+				type="text" name="OR_id" /> <br /> Patient_id: <input type="text"
+				name="P_id" /> <br /> Operation_id: <input type="text" name="O_id" />
+			<br /> Doctor_id: <input type="text" name="D_id" /> <br />
+			Nurse_id: <input type="text" name="N_id" /> <br /> <input
+				type="submit" value="Add Appointment" />
+		</form>
+	</div>
+</body>
 </html>
