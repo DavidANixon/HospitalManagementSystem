@@ -18,7 +18,7 @@ public class EmployeeDAO {
 //	static final String dbUsername = "team17";
 //	static final String dbPassword = "team17";
 	static final String host = "jdbc:mysql://localhost:3306/Hospital";
-	static final String dbUsername = "root";
+	static final String dbUsername = "anicka";
 	static final String dbPassword = "";
 	
 	InputStream input;

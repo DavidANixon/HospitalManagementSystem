@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hospital Management System</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div id="header">
+		<h1 style="font-size: 40px;"><a href = "index.html" style="color: inherit; text-decoration: none;">
+		CWRU SURGICAL CLINICAL MANAGEMENT
+			SYSTEM</a></h1>
+	</div>
+	
+	<table>
+		<tr>
+			<td><button class="button" onclick="location.href='appointmentIndex.html'" type="button">
+   			 Appointments</button></td>
+   			 <td><button class="button" onclick="location.href='employeeIndex.html'" type="button">
+   			 Employees</button></td>
+   			 <td><button class="button" onclick="location.href='operatingRoomIndex.html'" type="button">
+   			 Operating Rooms</button></td>
+   			 <td><button class="button" onclick="location.href='operationIndex.html'" type="button">
+   			 Operations</button></td>
+   			 <td><button class="button" onclick="location.href='patientIndex.html'" type="button">
+   			 Patients</button></td>
+		</tr>
+	</table>
+		
+		<h2>Show all Operations</h2>
+		<form name="showAllEmps" method="get" action="OperationServlet">
+			<p> Show all Operations:  </p> <br/>
+			<div style="display:none;"> <input type="text" name="id" value="-1"/> </div><br/>
+    		<input type="submit" value="Show all operations" />
+		</form>
+		
+		<h2>Add an Operation</h2>
+		<p><strong>Add an Operation:</strong></p><br/>
+		<form name="addEmpForm" method="post" action="OperationServlet">
+			<div style="display:none;"><input type="text" name="id" value="-1"/></div><br/>
+    		Name: <input type="text" name="Name"/> <br/>
+    		Illness: <input type="text" name="Illness"/> <br/>	
+   			Specialty: <input type="text" name="Specialty"/> <br/>
+   			Duration (in hours): <input type="number" name="Duration" min="0" max="200" step="1" value="5"><br/>
+   			
+    		<input type="submit" value="Add Operation" />
+		</form>
+		
+		<h2>Update an Operation</h2>
+		<p><strong>Update an Operation:</strong></p><br/>
+		<form name="updateEmpForm" method="post" action="OperationServlet">
+			Operation Id: <input type="text" name="id"/><br/>
+			<p>Fill in all fields below: </p>
+    		Name: <input type="text" name="Name"/> <br/>
+    		Illness: <input type="text" name="Illness"/> <br/>	
+   			Specialty: <input type="text" name="Specialty"/> <br/>
+   			Duration (in hours): <input type="number" name="Duration" min="0" max="200" step="1" value="5"><br/>
+   			
+    		<input type="submit" value="Update Operation" />
+		</form>
+		
+		<h2>Delete an Operation</h2>
+		<form name="deleteAllEmps" method="get" action="OperationServlet">
+			<p> If you would like to delete an Operation, enter their ID here: </p> <br/>
+			Id: <input type="text" name="id"/><br/>
+			<p>If you would like to see all Operations in the system, please enter "-1" above.</p><br/>
+    		<input type="submit" value="Delete Operation" />
+		</form>
+	</body>
+</html>
