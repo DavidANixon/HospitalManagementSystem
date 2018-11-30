@@ -54,20 +54,20 @@
 				type="submit" value="Delete Appointment" />
 		</form>
 	</div>
-	
-		<div class="other-left">
+
+	<div class="other-left">
 		<div class="heading-two">
 			<h2>Update an Appointment</h2>
 		</div>
 		<form name="updateEmpForm" method="post" action="AppointmentServlet">
-			Appointment Id: <input type="text" name="id" /><br />
-			Date: <input type="date" name="Date" value="2018-12-04"> <br />
-			Time: <input type="text" name="Time" /> <br /> OR_ID: <input
-				type="text" name="OR_id" /> <br /> Patient_id: <input type="text"
-				name="P_id" /> <br /> Operation_id: <input type="text" name="O_id" />
-			<br /> Doctor_id: <input type="text" name="D_id" /> <br />
-			Nurse_id: <input type="text" name="N_id" /> <br /> <input
-				type="submit" value="Update Appointment" />
+			Appointment Id: <input type="text" name="id" /><br /> Date: <input
+				type="date" name="Date" value="2018-12-04"> <br /> Time: <input
+				type="text" name="Time" /> <br /> OR_ID: <input type="text"
+				name="OR_id" /> <br /> Patient_id: <input type="text" name="P_id" />
+			<br /> Operation_id: <input type="text" name="O_id" /> <br />
+			Doctor_id: <input type="text" name="D_id" /> <br /> Nurse_id: <input
+				type="text" name="N_id" /> <br /> <input type="submit"
+				value="Update Appointment" />
 		</form>
 	</div>
 
@@ -76,17 +76,21 @@
 			<h2>Add an Appointment</h2>
 		</div>
 		<form name="addEmpForm" method="post" action="AppointmentServlet">
-			<div style="display: none;">
-				<input type="text" name="id" value="-1" />
-			</div>
-			<br /> Date: <input type="date" name="Date" value="2018-12-04">
-			<br /> Time: <input type="text" name="Time" /> <br /> OR_ID: <input
+			Date: <input type="date" name="Date" value="2018-12-04"> <br />
+			Time: <input type="text" name="Time" /> <br /> OR_ID: <input
 				type="text" name="OR_id" /> <br /> Patient_id: <input type="text"
 				name="P_id" /> <br /> Operation_id: <input type="text" name="O_id" />
 			<br /> Doctor_id: <input type="text" name="D_id" /> <br />
 			Nurse_id: <input type="text" name="N_id" /> <br /> <input
 				type="submit" value="Add Appointment" />
+			<div style="display: none;">
+				<input type="text" name="id" value="-1" />
+			</div>
 		</form>
+	</div>
+
+	<div id="footer">
+		<p>&#169;2018 | Created by The Best Team 17 & Vincent</p>
 	</div>
 </body>
 </html>
