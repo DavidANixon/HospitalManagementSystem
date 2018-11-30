@@ -1,56 +1,91 @@
+
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Hospital Management System </title>
-	</head>
-	<body>
-		<h1>Hospital Management System</h1>
+<head>
+<meta charset="UTF-8">
+<title>Hospital Management System</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div id="header">
+		<h1 style="font-size: 40px;"><a href = "index.html" style="color: inherit; text-decoration: none;">
+		CWRU SURGICAL CLINICAL MANAGEMENT
+			SYSTEM</a></h1>
+	</div>
+
+	<table>
+		<tr>
+			<td><a href="appointmentIndex.html" class="button">Appointments</button></a></td>
+			<td><button class="button" onclick="alert('Hello world!')">Employees</button></td>
+			<td><button class="button" onclick="alert('Hello world!')">Operating
+					Rooms</button></td>
+			<td><button class="button" onclick="alert('Hello world!')">Operations</button></td>
+			<td><button class="button" onclick="alert('Hello world!')">Patients</button></td>
+		</tr>
+	</table>
+
+	<div id="left1">
+		<div id="heading-two">
+			<h2>About the System</h2>
+		</div>
+		<p>Welcome to the internal CWRU Surgical Clinic database system
+			deliver by the latest technology available on the market. We are
+			using the newest machine learning techniques to deliver seamless
+			features and enable the end user to effortlessly add, update, and
+			delete their personal information.</p>
 		
-		<a href="employeeIndex.html">button</a>
-		<h3>Our management system has lots of handy features, you can:</h3>
-		
-		<h2>Show all employees</h2>
-		<form name="showAllEmps" method="get" action="EmployeeServlet">
-			<p> Show all employees:  </p> <br/>
-			<div style="display:none;"> <input type="text" name="id" value="-1"/> </div><br/>
-			<p>some text here</p><br/>
-    		<input type="submit" value="Submit" />
+	</div>
+
+	<img src="surgeon.svg" alt="Surgeon"
+		style="float: right; width: 600px; height: 600px;">
+
+	<div id=left2>
+		<div id="heading-two">
+			<h2>Make an Appointment</h2>
+		</div>
+
+		<form name="addEmpForm" method="post" action="AppointmentServlet">
+			<div class="col-25">Today's Date</div>
+			<div class="col75">
+				<input type="date" name="DOB" value="2018-12-04">
+			</div>
+			<div class="col-25">Current Time</div>
+			<div class="col75">
+				<input type="text" name="Time" />
+			</div>
+			   
+			<div class="col-25">Room ID</div>
+			<div class="col75">
+				<input type="text" name="OR_id" />
+			</div>
+			 
+			<div class="col-25">Patient ID</div>
+			<div class="col75">
+				<input type="text" name="P_id" />
+			</div>
+			  
+			<div class="col-25">Operation ID</div>
+			<div class="col75">
+				<input type="text" name="O_id" />
+			</div>
+			  
+			<div class="col-25">Doctor ID</div>
+			<div class="col75">
+				<input type="text" name="D_id" />
+			</div>
+			 
+			<div class="col-25">Nurse ID</div>
+			<div class="col75">
+				<input type="text" name="N_id" />
+			</div>
+			    <input type="submit" value="Submit" />
+			<div style="display: none;">
+				<input type="text" name="id" value="-1" />
+			</div>
 		</form>
-		
-		<h2>Add an employee</h2>
-		<p><strong>Add an Employee:</strong></p><br/>
-		<form name="addEmpForm" method="post" action="EmployeeServlet">
-			<div style="display:none;"><input type="text" name="id" value="-1"/></div><br/>
-    		Name: <input type="text" name="name"/> <br/>
-  			Age: <input type="number" name="age" min="0" max="200" step="1" value="20"> <br/>			
-   			Phone: <input type="text" name="phone"/> <br/>
-   			Office: <input type="text" name="office"/> <br/>
-   			Specialty: <input type="text" name="specialty"/> <br/>
-   			
-    		<input type="submit" value="Add Employee" />
-		</form>
-		
-		<h2>Update an employee</h2>
-		<p><strong>Update an Employee:</strong></p><br/>
-		<form name="updateEmpForm" method="post" action="EmployeeServlet">
-			Employee Id: <input type="text" name="id"/><br/>
-			<p>Fill in all fields below: </p>
-    		Name: <input type="text" name="name"/> <br/>
-  			Age: <input type="number" name="age" min="0" max="200" step="1" value="20"> <br/>			
-   			Phone: <input type="text" name="phone"/> <br/>
-   			Office: <input type="text" name="office"/> <br/>
-   			Specialty: <input type="text" name="specialty"/> <br/>
-   			
-    		<input type="submit" value="Update Employee" />
-		</form>
-		
-		<h2>Delete an employee</h2>
-		<form name="deleteAllEmps" method="get" action="EmployeeServlet">
-			<p> If you would like to delete an employee, enter their ID here: </p> <br/>
-			Id: <input type="text" name="id"/><br/>
-			<p>If you would like to see all employees in the system, please enter "-1" above.</p><br/>
-    		<input type="submit" value="Submit" />
-		</form>
-	</body>
+
+		<div id="footer">
+			<p>&#169;2018 | Created by The Best Team: #17 & Vincent</p>
+		</div>
+</body>
 </html>
