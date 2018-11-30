@@ -204,10 +204,7 @@ public class AppointmentServlet extends HttpServlet {
 	
 	private boolean drIsQualified(Employee dr, Operation op) {
 		try {
-			for(Operation operation : odao.getAllOperations()) {
-				if (operation.getName().equals(op.getName()))
-					System.out.println("this worked for: " + op.getName());
-				
+			for(Operation operation : odao.getAllOperations()) {				
 				if (operation.getName().equals(op.getName()) && dr.getSpecialty().equals(operation.getSpecialty()))
 					return true;
 			}
