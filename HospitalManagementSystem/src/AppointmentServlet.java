@@ -69,7 +69,24 @@ public class AppointmentServlet extends HttpServlet {
 		}
 	}
 	
-
+	private String orConflict(int id) {
+		if (id != -1) {
+			return "<p>The selected Operating Room has a time conflict with the appointment associated with ID:#" + id + ".</p>";
+		}
+		return "";
+	}
+	private String drConflict(int id) {
+		if (id != -1) {
+			return "<p>The selected Doctor has a time conflict with the appointment associated with ID:#" + id + ".</p>";
+		}
+		return "";
+	}
+	private String nurseConflict(int id) {
+		if (id != -1) {
+			return "<p>The selected Nurse has a time conflict with the appointment associated with ID:#" + id + ".</p>";
+		}
+		return "";
+	}
 	
 	
 	//Add a new Appointment
@@ -92,7 +109,6 @@ public class AppointmentServlet extends HttpServlet {
         else 
         	buttonResult = "check";
 
-        System.out.println("We have a date " + dateStr);
         DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
         Date date = null;
 		try {
@@ -103,13 +119,77 @@ public class AppointmentServlet extends HttpServlet {
 		
 		// If check appointment is selected
 		if (buttonResult.equals("check")) {
-        	System.out.println("I did a thing");
+        	try {
+        		// get response writer
+    	        PrintWriter writer = response.getWriter();
+    	        
+        		if (dataTypesValid(time, orId, pId, oId, dId, nId)) {       
+        			
+        			int duration = operationDuration(edao.getEmployee(Integer.parseInt(dId)),odao.getOperation(Integer.parseInt(oId)));
+        			
+        		
+        			int orOk = adao.checkForORTimeConflicts(dateStr, Integer.parseInt(time), duration, Integer.parseInt(orId));
+        			int drOk = adao.checkForDoctorTimeConflicts(dateStr, Integer.parseInt(time), duration, Integer.parseInt(dId));
+       			    int nurseOk = adao.checkForNurseTimeConflicts(dateStr, Integer.parseInt(time), duration, Integer.parseInt(nId));  
+        			
+        			String htmlResponse = "";
+        			// there were no conflicts
+        			if (orOk == -1 && drOk ==-1 && nurseOk ==-1) {
+        				htmlResponse = "<h1> Appointment Available! </h1>";
+    	    	        htmlResponse += "<p>The selected appointment is avaiable, return to the Appointments page to schedule it. </p>";
+    	    	        htmlResponse += "<button onclick=\"goBack()\">Return to Appointments</button>\n" + 
+    	    	        		"\n" + 
+    	    	        		"<script>\n" + 
+    	    	        		"function goBack() {\n" + 
+    	    	        		"    window.history.back();\n" + 
+    	    	        		"}\n" + 
+    	    	        		"</script>";
+    	    	        htmlResponse += "</html>";
+        			}
+        			//there were conflicts
+        			else {
+        				htmlResponse = "<h1> Appointment Not Available </h1>";
+    	    	        htmlResponse += "<p>The appointment selected has a time conflict with one or more already scheduled appointments. See details below.</p>";
+    	    	        htmlResponse += orConflict(orOk);
+    	    	        htmlResponse += drConflict(drOk);
+    	    	        htmlResponse += nurseConflict(nurseOk);
+    	    	        htmlResponse += "<button onclick=\"goBack()\">Return to Appointments</button>\n" + 
+    	    	        		"\n" + 
+    	    	        		"<script>\n" + 
+    	    	        		"function goBack() {\n" + 
+    	    	        		"    window.history.back();\n" + 
+    	    	        		"}\n" + 
+    	    	        		"</script>";
+    	    	        htmlResponse += "</html>";
+        			}
+        			
+        			writer.println(htmlResponse);
+        			}
+      	
+       
+	        	else {
+	    			String htmlResponse = "<html>";
+	    	        htmlResponse = "<h1> Input Error </h1>";
+	    	        htmlResponse += "<p>The appointment contains an input error. </br> Make sure your employees have the correct specialties and that all fields are filled with integers.</p>";
+	    	        htmlResponse += "<button onclick=\"goBack()\">Return to Appointments</button>\n" + 
+	    	        		"\n" + 
+	    	        		"<script>\n" + 
+	    	        		"function goBack() {\n" + 
+	    	        		"    window.history.back();\n" + 
+	    	        		"}\n" + 
+	    	        		"</script>";
+	    	        htmlResponse += "</html>";
+	    	        writer.println(htmlResponse);
+	        	}
+        	
+        	} catch (Exception e) {
+        			e.printStackTrace();
+        	}
         }
 
 		//If Add appointment is selected
 		else if(buttonResult.equals("add")) {
         	try {   		
-
     			
     			// get response writer
     	        PrintWriter writer = response.getWriter();
@@ -193,6 +273,19 @@ public class AppointmentServlet extends HttpServlet {
 	
 	/////////////// HELPER AND VALIDATION METHODS ///////////////////////////////////////
 	
+	private int operationDuration(Employee dr, Operation op) {
+		try {
+			for(Operation operation : odao.getAllOperations()) {				
+				if (operation.getName().equals(op.getName()) && dr.getSpecialty().equals(operation.getSpecialty()))
+					return operation.getDuration();
+			}
+			return -1;
+		}
+		catch (Exception e) {
+ 			return -1;
+		}
+	}
+	
 	private boolean stringsNonEmpty(String time, String orId, String pId, String oId, String dId, String nId) {
 		List<String> paramList = new ArrayList<>(Arrays.asList(time, orId, pId, oId, dId, nId));
 		for(String param : paramList) {
@@ -211,7 +304,7 @@ public class AppointmentServlet extends HttpServlet {
 			return false;
 		}
 		catch (Exception e) {
-			return false;
+ 			return false;
 		}
 	}
 	
