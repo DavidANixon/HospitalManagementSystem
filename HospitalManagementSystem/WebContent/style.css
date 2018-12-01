@@ -42,8 +42,8 @@ body {
 	background: #ffffff;
 	margin: 30px;
 	margin-left: 50px;
-	margin-top: 75px;
-	margin-bottom: 3px;
+	margin-top: 70px;
+	margin-bottom: 0px;
 	border-radius: 10px;
 	text-align: justify;
 }
@@ -54,7 +54,7 @@ body {
 	color: #000000;
 	margin: 30px;
 	margin-left: 50px;
-	margin-top: 3px;
+	margin-top: 0px;
 	margin-bottom: 5px;
 	border-radius: 10px;
 }
