@@ -88,6 +88,20 @@ public class AppointmentServlet extends HttpServlet {
 		return "";
 	}
 	
+	private boolean conflictsExist(String dateStr, String time, String orId, String oId, String dId, String nId) {
+		try {
+			
+			int duration = operationDuration(edao.getEmployee(Integer.parseInt(dId)),odao.getOperation(Integer.parseInt(oId)));
+			int orOk = adao.checkForORTimeConflicts(dateStr, Integer.parseInt(time), duration, Integer.parseInt(orId));
+			int drOk = adao.checkForDoctorTimeConflicts(dateStr, Integer.parseInt(time), duration, Integer.parseInt(dId));
+			int nurseOk = adao.checkForNurseTimeConflicts(dateStr, Integer.parseInt(time), duration, Integer.parseInt(nId));
+			
+			return !(orOk == -1 && drOk ==-1 && nurseOk ==-1);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return true;
+		}	
+	}
 	
 	//Add a new Appointment
 	protected void doPost(HttpServletRequest request,
@@ -126,15 +140,13 @@ public class AppointmentServlet extends HttpServlet {
         		if (dataTypesValid(time, orId, pId, oId, dId, nId)) {       
         			
         			int duration = operationDuration(edao.getEmployee(Integer.parseInt(dId)),odao.getOperation(Integer.parseInt(oId)));
-        			
-        		
         			int orOk = adao.checkForORTimeConflicts(dateStr, Integer.parseInt(time), duration, Integer.parseInt(orId));
         			int drOk = adao.checkForDoctorTimeConflicts(dateStr, Integer.parseInt(time), duration, Integer.parseInt(dId));
        			    int nurseOk = adao.checkForNurseTimeConflicts(dateStr, Integer.parseInt(time), duration, Integer.parseInt(nId));  
-        			
+	
         			String htmlResponse = "";
         			// there were no conflicts
-        			if (orOk == -1 && drOk ==-1 && nurseOk ==-1) {
+        			if (!conflictsExist(dateStr, time, orId, oId, dId, nId)) {
         				htmlResponse = "<h1> Appointment Available! </h1>";
     	    	        htmlResponse += "<p>The selected appointment is avaiable, return to the Appointments page to schedule it. </p>";
     	    	        htmlResponse += "<button onclick=\"goBack()\">Return to Appointments</button>\n" + 
@@ -194,7 +206,8 @@ public class AppointmentServlet extends HttpServlet {
     			// get response writer
     	        PrintWriter writer = response.getWriter();
         		
-        		if (dataTypesValid(time, orId, pId, oId, dId, nId)) {        		
+        		if (dataTypesValid(time, orId, pId, oId, dId, nId) && !conflictsExist(dateStr, time, orId, oId, dId, nId)) {  
+        			
         		
 	    			Appointment p = new Appointment(3, date, Integer.parseInt(time), Integer.parseInt(orId), Integer.parseInt(pId), Integer.parseInt(oId), Integer.parseInt(dId), Integer.parseInt(nId));
 	    			adao.addAppointment(p);
@@ -231,7 +244,8 @@ public class AppointmentServlet extends HttpServlet {
               	
         			String htmlResponse = "<html>";
 	    	        htmlResponse = "<h1> Input Error </h1>";
-	    	        htmlResponse += "<p>The appointment contains an input error. </br> Make sure your employees have the correct specialties and that all fields are filled with integers.</p>";
+	    	        htmlResponse += "<p>The appointment contains an input error. </br> Be sure to check that your appointment has no time conflicts before attempting to add it. </br>";
+	    	        htmlResponse += "Also make sure your employees have the correct specialties and that all fields are filled with integers.</p>";
 	    	        htmlResponse += "<button onclick=\"goBack()\">Return to Appointments</button>\n" + 
 	    	        		"\n" + 
 	    	        		"<script>\n" + 
