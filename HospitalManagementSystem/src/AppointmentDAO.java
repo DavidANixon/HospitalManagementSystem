@@ -1,5 +1,6 @@
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -60,6 +61,84 @@ public class AppointmentDAO {
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		}
+	}
+	
+	public int checkForORTimeConflicts(String date, int time, int duration, int orId) {
+		try {
+			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
+		   String statementString = "";
+		   statementString += "SELECT Appointment_ID FROM Appointment WHERE ";
+		   statementString += "OR_ID = " + orId + " AND Date = '" + date + "' AND ";
+		   statementString += "(Time BETWEEN " + (String.valueOf(time-duration));
+		   statementString += " AND " + (String.valueOf(time+duration)) + ")";
+		   System.out.println(statementString);
+		   preparedStatement = connection.prepareStatement(statementString);
+		   
+		   resultSet = preparedStatement.executeQuery();
+			
+		   if (!resultSet.next())
+			   return -1;
+		   else 
+			   return resultSet.getInt(1);
+			   
+			
+		} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				return -100;
+		}
+	}
+	
+	public int checkForDoctorTimeConflicts(String date, int time, int duration, int dId) {
+		try {
+			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
+		   String statementString = "";
+		   statementString += "SELECT Appointment_ID FROM Appointment WHERE ";
+		   statementString += "Doctor_ID = " + dId + " AND Date = '" + date + "' AND ";
+		   statementString += "(Time BETWEEN " + (String.valueOf(time-duration));
+		   statementString += " AND " + (String.valueOf(time+duration)) + ")";
+		   System.out.println(statementString);
+		   preparedStatement = connection.prepareStatement(statementString);
+		   
+		   resultSet = preparedStatement.executeQuery();
+			
+		   if (!resultSet.next())
+			   return -1;
+		   else 
+			   return resultSet.getInt(1);
+			   
+			
+		} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				return -100;
+		}
+	}
+	
+	public int checkForNurseTimeConflicts(String date, int time, int duration, int nurseId) {
+		try {
+			connection = DriverManager.getConnection(host, dbUsername, dbPassword);
+		   String statementString = "";
+		   statementString += "SELECT Appointment_ID FROM Appointment WHERE ";
+		   statementString += "Nurse_ID = " + nurseId + " AND Date = '" + date + "' AND ";
+		   statementString += "(Time BETWEEN " + (String.valueOf(time-duration));
+		   statementString += " AND " + (String.valueOf(time+duration)) + ")";
+		   System.out.println(statementString);
+		   preparedStatement = connection.prepareStatement(statementString);
+		   
+		   resultSet = preparedStatement.executeQuery();
+			
+		   if (!resultSet.next())
+			   return -1;
+		   else 
+			   return resultSet.getInt(1);
+			   
+			
+		} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				return -100;
 		}
 	}
 	
@@ -179,4 +258,5 @@ public class AppointmentDAO {
 		    if (connection != null) try { connection.close(); } catch (SQLException ignore) {}
 	    }
 	}
+	
 }

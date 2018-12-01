@@ -61,7 +61,6 @@
 		</div>
 		<form name="updateEmpForm" method="post" action="AppointmentServlet">
 			Appointment Id: <input type="text" name="id" /><br /> Date: <input
-				type="date" name="Date"=> <br /> Time: <input
 				type="text" name="Time" /> <br /> OR_ID: <input type="text"
 				name="OR_id" /> <br /> Patient_id: <input type="text" name="P_id" />
 			<br /> Operation_id: <input type="text" name="O_id" /> <br />
@@ -73,16 +72,16 @@
 
 	<div class="other-right">
 		<div class="heading-two">
-			<h2>Add an Appointment</h2>
+			<h2>Add an Appointment or Check its Availability</h2>
 		</div>
 		<form name="addEmpForm" method="post" action="AppointmentServlet">
-			Date: <input type="date" name="Date"> <br />
 			Time: <input type="text" name="Time" /> <br /> OR_ID: <input
 				type="text" name="OR_id" /> <br /> Patient_id: <input type="text"
 				name="P_id" /> <br /> Operation_id: <input type="text" name="O_id" />
 			<br /> Doctor_id: <input type="text" name="D_id" /> <br />
 			Nurse_id: <input type="text" name="N_id" /> <br /> <input
-				type="submit" value="Add Appointment" />
+				type="submit" name="add_button" value="Add Appointment" />
+				<input type="submit" name="check_button" value="Check Appointment" />
 			<div style="display: none;">
 				<input type="text" name="id" value="-1" />
 			</div>
