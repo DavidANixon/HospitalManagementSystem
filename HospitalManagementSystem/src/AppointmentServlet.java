@@ -44,10 +44,24 @@ public class AppointmentServlet extends HttpServlet {
 				lst = adao.getAllAppointments();
 				if(lst != null) {
 					//| Appointment_ID | Date       | Time | OR_ID | Patient_ID | Operation_ID | Doctor_ID | Nurse_ID |
-					out.println("<p> <strong> ID | Date | Time | OR_ID | Patient_ID | Operation_ID | Doctor_ID | Nurse_ID </strong></p>");
+					out.println("<p> <strong> ID |___Date__| Time | Operating Room | Patient |____Operation____| Doctor | Nurse </strong></p>");
 					for(int i = 0; i < lst.size(); i++) {
 						Appointment tempP = lst.get(i);
-						out.println("<p>" + tempP.getId() + " | " +  tempP.getDate() + " | " + tempP.getTime() + " | " + tempP.getOr_id() + " | " + tempP.getPatient_id() + " | " + tempP.getOperation_id() + " | " + tempP.getDoctor_id() + " | " + tempP.getNurse_id() +  "</p>");
+						String operation = odao.getOperation(tempP.getOperation_id()).getName();
+						String doctorName = edao.getEmployee(tempP.getDoctor_id()).getName();
+						String nurseName = edao.getEmployee(tempP.getNurse_id()).getName();
+						String oproomBld = ordao.getOperatingRoom(tempP.getOr_id()).getBuilding();
+						int oproomRm = ordao.getOperatingRoom(tempP.getOr_id()).getRoomNumber();
+						String patientName = pdao.getPatient(tempP.getPatient_id()).getName();
+						
+						out.println("<p>" + tempP.getId() + " | " 
+										  +  tempP.getDate() + " | " 
+										  + tempP.getTime() + ":00 | " 
+										  + oproomBld + " " + oproomRm + " | " 
+										  + patientName + " | " 
+										  + operation + " | " 
+										  + nurseName + " | " 
+										  + doctorName +  "</p>");
 					}
 				}else {
 					out.println("<p>" + "There is no data in the table or a table was not found." + "<p>");

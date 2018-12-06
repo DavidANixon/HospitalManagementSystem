@@ -20,12 +20,13 @@ public class EmployeeServlet extends HttpServlet {
 		response.setContentType("text/html");
 		// Writing message to the web page
 		PrintWriter out = response.getWriter();
-		out.println("<h1>" + "List all Employees" + "</h1>");
+		
 		EmployeeDAO edao = new EmployeeDAO();
 		String id = request.getParameter("id");
 		if(id.equals("-1")) {
 			List<Employee> lst = new ArrayList<Employee>();
 			try {
+				out.println("<h1>" + "List all Employees" + "</h1>");
 				//Get all initial data
 				lst = edao.getAllEmployees();
 				if(lst != null) {
@@ -46,7 +47,7 @@ public class EmployeeServlet extends HttpServlet {
 			}else {
 				try {
 					edao.deleteEmployee(Integer.parseInt(id));
-					out.println("<p> Employee Deleted</p>");
+					out.println("<h1> Employee Deleted</h1>");
 				}catch (Exception e) {
 					
 				}
