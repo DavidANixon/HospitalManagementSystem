@@ -60,8 +60,8 @@ public class AppointmentServlet extends HttpServlet {
 										  + oproomBld + " " + oproomRm + " | " 
 										  + patientName + " | " 
 										  + operation + " | " 
-										  + nurseName + " | " 
-										  + doctorName +  "</p>");
+										  + doctorName + " | " 
+										  + nurseName +  "</p>");
 					}
 				}else {
 					out.println("<p>" + "There is no data in the table or a table was not found." + "<p>");
@@ -134,8 +134,10 @@ public class AppointmentServlet extends HttpServlet {
         String buttonResult;
         if (request.getParameter("add_button") != null) 
         	buttonResult = "add";
-        else 
+        else if (request.getParameter("check_button") != null)
         	buttonResult = "check";
+        else
+        	buttonResult = "notAddOrCheck";
 
         DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
         Date date = null;
