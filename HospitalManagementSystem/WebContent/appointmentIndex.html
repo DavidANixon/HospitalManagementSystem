@@ -60,13 +60,15 @@
 			<h2>Update an Appointment</h2>
 		</div>
 		<form name="updateEmpForm" method="post" action="AppointmentServlet">
-			Appointment Id: <input type="text" name="id" /><br /> Date: <input
-				type="text" name="Time" /> <br /> OR_ID: <input type="text"
-				name="OR_id" /> <br /> Patient_id: <input type="text" name="P_id" />
-			<br /> Operation_id: <input type="text" name="O_id" /> <br />
-			Doctor_id: <input type="text" name="D_id" /> <br /> Nurse_id: <input
-				type="text" name="N_id" /> <br /> <input type="submit"
-				value="Update Appointment" />
+			Appointment Id: <input type="text" name="id" /><br /> 
+			Date: <input type="date" name="Date" placeholder="2018-12-06"/> <br />
+			Time: <input type="text" name="Time" /> <br /> 
+			OR_ID: <input type="text" name="OR_id" /> <br /> 
+			Patient_id: <input type="text" name="P_id" /> <br /> 
+			Operation_id: <input type="text" name="O_id" /> <br />
+			Doctor_id: <input type="text" name="D_id" /> <br /> 
+			Nurse_id: <input type="text" name="N_id" /> <br /> 
+			<input type="submit" value="Update Appointment" />
 		</form>
 	</div>
 
@@ -75,7 +77,7 @@
 			<h2>Add an Appointment or Check its Availability</h2>
 		</div>
 		<form name="addEmpForm" method="post" action="AppointmentServlet">
-		Date: <input type="date" name="Date" placeholder="2018-12-06"/>
+		Date: <input type="date" name="Date" placeholder="2018-12-06"/> <br />
 			Time: <input type="text" name="Time" /> <br /> OR_ID: <input
 				type="text" name="OR_id" /> <br /> Patient_id: <input type="text"
 				name="P_id" /> <br /> Operation_id: <input type="text" name="O_id" />
