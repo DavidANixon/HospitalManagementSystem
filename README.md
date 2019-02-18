@@ -1,7 +1,6 @@
 # DatabasesProject
 Term Project for Intro to Database Systems
-Created by Anna, David, Michael, and Zetao
-
+Created by Anna, David, and Michael
  
 ### Backend File Structure: 
 - Each data type (patient, employee, etc) had a class and a DAO file in the `/src/` directory. 
